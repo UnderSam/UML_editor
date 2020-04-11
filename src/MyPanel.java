@@ -13,6 +13,7 @@ public class MyPanel extends JPanel{
 	private ArrayList<Shape> shapeArrayList;
 	private int click_x;
 	private int click_y;
+	private Boolean isSelectItem;
 	public MyPanel(GUI myGUI) {
 		// TODO Auto-generated constructor stub
 		this.setShapeArrayList(new ArrayList<Shape>());
@@ -29,23 +30,28 @@ public class MyPanel extends JPanel{
 		        int mode = myGUI.getMode();
 		        if (mode==0) {
 		        	//System.out.println("mouseDragged");
-		        	for(int i=0;i<getShapeArrayList().size();i++) {
-						if(((BasicObject) getShapeArrayList().get(i)).isSelected()) {
-							int current_x = getShapeArrayList().get(i).getX();
-							int current_y = getShapeArrayList().get(i).getY();
-							int click_x = getClick_x();
-							int click_y = getClick_y();
-							int moved_x = e.getX();
-							int moved_y = e.getY();
-	
-							getShapeArrayList().get(i).setX(current_x+(moved_x-click_x));
-							getShapeArrayList().get(i).setY(current_y+(moved_y-click_y));
-							
+		        	if(getIsSelectItem()) {
+		        		//System.out.println("DraggedItem");
+		        		for(int i=0;i<getShapeArrayList().size();i++) {
+							if(((BasicObject) getShapeArrayList().get(i)).isSelected()) {
+								int current_x = getShapeArrayList().get(i).getX();
+								int current_y = getShapeArrayList().get(i).getY();
+								int click_x = getClick_x();
+								int click_y = getClick_y();
+								int moved_x = e.getX();
+								int moved_y = e.getY();
+		
+								getShapeArrayList().get(i).setX(current_x+(moved_x-click_x));
+								getShapeArrayList().get(i).setY(current_y+(moved_y-click_y));
+								
+							}
 						}
-					}
+		        		setClick_x(e.getX());
+			        	setClick_y(e.getY());
+		        	}else {
+		        		//System.out.println("SelectItem");
+		        	}
 		        	repaint();
-		        	setClick_x(e.getX());
-		        	setClick_y(e.getY());
 		        }
 		    }
 			@Override
@@ -57,7 +63,29 @@ public class MyPanel extends JPanel{
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				System.out.println("mouseRelease");
-				
+				int mode = myGUI.getMode();
+				if(mode==0) {
+					if(!getIsSelectItem()) {
+						System.out.println("SelectReleased");
+						int leftX = e.getX() > getClick_x() ? getClick_x():e.getX();
+						int rightX = e.getX() > getClick_x() ? e.getX() : getClick_x();
+						int upY = e.getY() > getClick_y() ? getClick_y() : e.getY();
+						int downY = e.getY() > getClick_y() ? e.getY() : getClick_y();
+//						System.out.println(leftX);
+//						System.out.println(rightX);
+//						System.out.println(upY);
+//						System.out.println(downY);
+						for(int i=0;i<getShapeArrayList().size();i++) {
+							if(((BasicObject) getShapeArrayList().get(i)).isin(leftX,upY,rightX,downY)) {
+								((BasicObject) getShapeArrayList().get(i)).setSelected(true);
+								setIsSelectItem(true);
+							}else {
+								((BasicObject) getShapeArrayList().get(i)).setSelected(false);
+							}
+						}
+						repaint();
+					}
+				}
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -69,11 +97,13 @@ public class MyPanel extends JPanel{
 		        int mode = myGUI.getMode();
 				switch(mode){
 					case 0:
+						setIsSelectItem(false);
 						setClick_x(e.getX());
 						setClick_y(e.getY());
 						for(int i=0;i<getShapeArrayList().size();i++) {
-							if(((BasicObject) getShapeArrayList().get(i)).isin(e.getX(),e.getY())) {
+							if(((BasicObject) getShapeArrayList().get(i)).contain(e.getX(),e.getY())) {
 								((BasicObject) getShapeArrayList().get(i)).setSelected(true);
+								setIsSelectItem(true);
 							}else {
 								((BasicObject) getShapeArrayList().get(i)).setSelected(false);
 							}
@@ -131,6 +161,12 @@ public class MyPanel extends JPanel{
 	}
 	public void setClick_y(int click_y) {
 		this.click_y = click_y;
+	}
+	public Boolean getIsSelectItem() {
+		return isSelectItem;
+	}
+	public void setIsSelectItem(Boolean isSelectItem) {
+		this.isSelectItem = isSelectItem;
 	}  
 
 }

@@ -23,12 +23,25 @@ public class BasicObject extends Shape{
 		// TODO Auto-generated method stub
 		
 	}
-	public Boolean isin(int x,int y) {
+	public Boolean contain(int x,int y) {
 		Boolean isSelect = false;
 		if(x > this.getX() && x < this.getX()+this.getCheck_width() && y > this.getY() && y < this.getY()+this.getCheck_height()) {
 			isSelect = true;
 		}
 		return isSelect;
+	}
+	public Boolean isin(int x,int y,int x2,int y2) {
+		Boolean isIn = false;
+//		System.out.println("onject");
+//		System.out.println(this.getX());
+//		System.out.println(this.getX()+this.getCheck_width());
+//		System.out.println(this.getY());
+//		System.out.println(this.getY()+this.getCheck_height());
+		if(this.getX() > x && this.getY() > y && this.getX()+this.getCheck_width() < x2 && this.getY()+this.getCheck_height() < y2) {
+			//System.out.println("isin");
+			isIn = true;
+		}
+		return isIn;
 	}
 	public String getName() {
 		return name;
