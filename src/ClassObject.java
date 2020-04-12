@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class ClassObject extends BasicObject{
@@ -33,6 +34,12 @@ public class ClassObject extends BasicObject{
 		int actual_y = this.getY();
 		for(int i=0;i<3;i++) {
 			//drawRect(x,y,width,height)
+			G.setColor(Color.white);
+			G.fillRect(actual_x, actual_y+i*this.getHeight(), this.getWidth(), this.getHeight());
+		}
+		for(int i=0;i<3;i++) {
+			//drawRect(x,y,width,height)
+			G.setColor(Color.black);
 			G.drawRect(actual_x, actual_y+i*this.getHeight(), this.getWidth(), this.getHeight());
 		}
 		if(this.isSelected()) {

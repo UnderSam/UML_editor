@@ -15,7 +15,13 @@ public class MyPanel extends JPanel{
 	private int click_x;
 	private int click_y;
 	private Boolean isSelectItem;
+	int CircleRadius;
+	int RectWidth;
+	int RectHeight;
 	public MyPanel(GUI myGUI) {
+		CircleRadius = 40;
+		RectWidth = 100;
+		RectHeight = 25;
 		// TODO Auto-generated constructor stub
 		this.setShapeArrayList(new ArrayList<Shape>());
 		this.setLineArrayList(new ArrayList<Line>());
@@ -25,7 +31,7 @@ public class MyPanel extends JPanel{
 			@Override
 		    // from MouseWheelListener
 		    public void mouseWheelMoved(MouseWheelEvent e) {
-		        System.out.println("mouseWheelMoved");
+		        //System.out.println("mouseWheelMoved");
 		    }
 			@Override
 		    public void mouseDragged(MouseEvent e) {
@@ -62,7 +68,7 @@ public class MyPanel extends JPanel{
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				System.out.println("mouseRelease");
+				//System.out.println("mouseRelease");
 				int mode = myGUI.getMode();
 				checkPoint startPoint = new checkPoint();
 				checkPoint endPoint = new checkPoint();
@@ -118,11 +124,11 @@ public class MyPanel extends JPanel{
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-		        System.out.println("mouseClicked");
+		        //System.out.println("mouseClicked");
 		    }
 			@Override
 		    public void mousePressed(MouseEvent e) {
-		        System.out.println("mousePressed");
+		        //System.out.println("mousePressed");
 		        diselectShapeList();
 		        repaint();
 		        setClick_x(e.getX());
@@ -140,11 +146,11 @@ public class MyPanel extends JPanel{
 						break;
 					case 4:
 						System.out.println(getShapeArrayList().size()+1);
-						getShapeArrayList().add(new ClassObject("default", e.getX(), e.getY(), getShapeArrayList().size()+1, 50, 20, myGUI.getDotSize()));
+						getShapeArrayList().add(new ClassObject("default", e.getX(), e.getY(), getShapeArrayList().size()+1, RectWidth, RectHeight, myGUI.getDotSize()));
 						break;
 					case 5:
 						System.out.println(getShapeArrayList().size()+1);
-						getShapeArrayList().add(new UseCaseObject("default", e.getX(), e.getY(), getShapeArrayList().size()+1, 20, myGUI.getDotSize())); // radius = 20
+						getShapeArrayList().add(new UseCaseObject("default", e.getX(), e.getY(), getShapeArrayList().size()+1, CircleRadius, myGUI.getDotSize())); // radius = 20
 						break;
 					default :
 						break;
@@ -153,11 +159,11 @@ public class MyPanel extends JPanel{
 		    }
 			@Override
 		    public void mouseEntered(MouseEvent e) {
-		        System.out.println("mouseEntered");
+		        //System.out.println("mouseEntered");
 		    }
 			@Override
 		    public void mouseExited(MouseEvent e) {
-		        System.out.println("mouseExited");
+		        //System.out.println("mouseExited");
 		    }
 		});
 		

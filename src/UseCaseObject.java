@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class UseCaseObject extends BasicObject{
@@ -20,6 +21,9 @@ public class UseCaseObject extends BasicObject{
 	@Override
 	public void draw(Graphics G) {
 		// TODO Auto-generated method stub
+		G.setColor(Color.white);
+		G.fillOval(this.getX(), this.getY(), this.getRadius()*2, this.getRadius()*2);
+		G.setColor(Color.black);
 		G.drawOval(this.getX(), this.getY(), this.getRadius()*2, this.getRadius()*2);
 		if(this.isSelected()) {
 			for(int i=0;i<this.getCheckPoint().length;i++) {
