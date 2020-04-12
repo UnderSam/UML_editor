@@ -8,9 +8,13 @@ import javax.swing.JMenuItem;
 public class GUI {
 	private JFrame frame;
 	private editor myeditor;
+	private int objectCount;
+	private int dotSize;
 	public GUI(editor myeditor) {
 		this.setMyeditor(myeditor);
 		this.frame = myeditor.getFrame();
+		this.setObjectCount(0);
+		this.setDotSize(10);
 		// TODO Auto-generated constructor stub
 	}
 	public void initialize() {
@@ -56,6 +60,18 @@ public class GUI {
 	}
 	public int getMode() {
 		return this.getMyeditor().getMode();
+	}
+	public int getObjectCount() {
+		return objectCount;
+	}
+	public void setObjectCount(int objectCount) {
+		this.objectCount = objectCount;
+	}
+	public int getDotSize() {
+		return dotSize;
+	}
+	public void setDotSize(int dotSize) {
+		this.dotSize = dotSize;
 	}
 
 
