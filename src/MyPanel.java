@@ -102,21 +102,27 @@ public class MyPanel extends JPanel{
 								}
 							}
 						}
+						else {
+							diselectShapeList();
+						}
 						break;
 					case 1:
 						if(startPoint.getBelongTo() != endPoint.getBelongTo() && startPoint.getBelongTo()!= -1 && endPoint.getBelongTo()!= -1) {
 							getLineArrayList().add(new Association_Line(startPoint, endPoint, myGUI.getDotSize()));
 						}
+						diselectShapeList();
 						break;
 					case 2:
 						if(startPoint.getBelongTo() != endPoint.getBelongTo() && startPoint.getBelongTo()!= -1 && endPoint.getBelongTo()!= -1) {
 							getLineArrayList().add(new Generalization_Line(startPoint, endPoint, myGUI.getDotSize()));
 						}
+						diselectShapeList();
 						break;
 					case 3:
 						if(startPoint.getBelongTo() != endPoint.getBelongTo() && startPoint.getBelongTo()!= -1 && endPoint.getBelongTo()!= -1) {
 							getLineArrayList().add(new Composition_Line(startPoint, endPoint, myGUI.getDotSize()));
 						}
+						diselectShapeList();
 						break;
 					default:
 						break;
