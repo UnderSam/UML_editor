@@ -4,12 +4,12 @@ import java.awt.Point;
 public class Association_Line extends Line{
 
 	private double theta; 
-  
+    
     // converting values to radians 
 	public Association_Line(Point start,Point end,int dotSize) {
 		// TODO Auto-generated constructor stub
 		super(start,end,dotSize);
-		this.setTheta(30);
+		this.setTheta(270);
 	}
 
 	@Override
@@ -20,16 +20,23 @@ public class Association_Line extends Line{
 	}
 
 	private void drawHead(Graphics g) {
+		
+		double distance = this.getDistance();
 		double rad = Math.toRadians(this.getTheta());
-		int arrow_one_x = (int) ((int) (this.getEndPoint().getX() - this.getStartPoint().getX())*Math.cos(rad) + (this.getEndPoint().getY() - this.getStartPoint().getY())*(-1)*Math.sin(rad) + this.getStartPoint().getX());
-		int arrow_one_y = (int) ((this.getEndPoint().getX() - this.getStartPoint().getX())*Math.sin(rad) + (this.getEndPoint().getY() - this.getStartPoint().getY())*(-1)*Math.cos(rad) + this.getStartPoint().getY());
+		double arrow_one_x = ((this.getEndPoint().getX() - this.getStartPoint().getX())*Math.cos(rad) + (this.getEndPoint().getY() - this.getStartPoint().getY())*(-1)*Math.sin(rad) + this.getStartPoint().getX());
+		double arrow_one_y = ((this.getEndPoint().getX() - this.getStartPoint().getX())*Math.sin(rad) + (this.getEndPoint().getY() - this.getStartPoint().getY())*(-1)*Math.cos(rad) + this.getStartPoint().getY());
+		arrow_one_x = this.getEndPoint().getX() - 10*(this.getEndPoint().getX()-arrow_one_x)/distance;
+		arrow_one_y = this.getEndPoint().getY() - 10*(this.getEndPoint().getY()-arrow_one_y)/distance;
 		
 		double rad2 = Math.toRadians(this.getTheta()*-1);
-		int arrow_two_x = (int) ((this.getEndPoint().getX() - this.getStartPoint().getX())*Math.cos(rad2) + (this.getEndPoint().getY() - this.getStartPoint().getY())*(-1)*Math.sin(rad2) + this.getStartPoint().getX());
-		int arrow_two_y = (int) ((this.getEndPoint().getX() - this.getStartPoint().getX())*Math.sin(rad2) + (this.getEndPoint().getY() - this.getStartPoint().getY())*(-1)*Math.cos(rad2) + this.getStartPoint().getY());
+		double arrow_two_x = (int) ((this.getEndPoint().getX() - this.getStartPoint().getX())*Math.cos(rad2) + (this.getEndPoint().getY() - this.getStartPoint().getY())*(-1)*Math.sin(rad2) + this.getStartPoint().getX());
+		double arrow_two_y = (int) ((this.getEndPoint().getX() - this.getStartPoint().getX())*Math.sin(rad2) + (this.getEndPoint().getY() - this.getStartPoint().getY())*(-1)*Math.cos(rad2) + this.getStartPoint().getY());
+		arrow_two_x = this.getEndPoint().getX() - 10*(this.getEndPoint().getX()-arrow_two_x)/distance;
+		arrow_two_y = this.getEndPoint().getY() - 10*(this.getEndPoint().getY()-arrow_two_y)/distance;
 		
-		g.drawLine((int)this.getStartPoint().getX(), (int)this.getStartPoint().getY(), arrow_one_x, arrow_one_y);
-		g.drawLine((int)this.getStartPoint().getX(), (int)this.getStartPoint().getY(), arrow_two_x, arrow_two_y);
+		
+		g.drawLine((int)this.getEndPoint().getX()+this.getDotSize()/2, (int)this.getEndPoint().getY()+this.getDotSize()/2, (int)arrow_one_x+this.getDotSize()/2, (int)arrow_one_y+this.getDotSize()/2);
+		g.drawLine((int)this.getEndPoint().getX()+this.getDotSize()/2, (int)this.getEndPoint().getY()+this.getDotSize()/2, (int)arrow_two_x+this.getDotSize()/2, (int)arrow_two_y+this.getDotSize()/2);
 	}
 	
 	public double getTheta() {

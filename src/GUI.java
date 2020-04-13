@@ -51,6 +51,8 @@ public class GUI {
 		MyPanel panel = new MyPanel(this);
 		frame.getContentPane().add(panel);
 		
+		
+		
 	}
 	public editor getMyeditor() {
 		return myeditor;
