@@ -46,6 +46,9 @@ public class BasicObject extends Shape{
 	}
 	
 	public void pointMoved(int moved_X,int moved_Y) {
+//		if(this.getX()+moved_X < 0 || this.getY()+moved_Y<0) {
+//			return;
+//		}
 		this.setX(this.getX()+moved_X);
 		this.setY(this.getY()+moved_Y);
 		for(int i=0; i < this.getCheckPoint().length ; i++) {

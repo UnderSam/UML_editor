@@ -1,3 +1,5 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -19,21 +21,6 @@ public class GUI {
 	}
 	public void initialize() {
 		
-		
-		
-		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
-		
-		JMenu mnFile = new JMenu("File");
-		menuBar.add(mnFile);
-		
-		JMenu mnEdit = new JMenu("Edit");
-		menuBar.add(mnEdit);
-		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Change Object name");
-		mnEdit.add(mntmNewMenuItem);
-		frame.getContentPane().setLayout(null);
-		
 		int buttonStartX = 26; 
 		int buttonStartY = 50;
 		int buttonStartWidth = 124; 
@@ -51,7 +38,52 @@ public class GUI {
 		MyPanel panel = new MyPanel(this);
 		frame.getContentPane().add(panel);
 		
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
 		
+		JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+		
+		JMenu mnEdit = new JMenu("Edit");
+		menuBar.add(mnEdit);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Change Object name");
+		mnEdit.add(mntmNewMenuItem);
+		mntmNewMenuItem.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						System.out.println(arg0.getActionCommand());
+						
+					}
+				}
+		);
+		JMenuItem mntmGroupMenuItem = new JMenuItem("Group");
+		mntmGroupMenuItem.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						System.out.println(arg0.getActionCommand());
+						panel.groupItem();
+					}
+				}
+		);
+		mnEdit.add(mntmGroupMenuItem );
+		JMenuItem mntmDegroupMenuItem = new JMenuItem("deGroup");
+		mntmDegroupMenuItem.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						System.out.println(arg0.getActionCommand());
+						panel.deGroupItem();
+					}
+				}
+		);
+		mnEdit.add(mntmDegroupMenuItem);
+		frame.getContentPane().setLayout(null);
 		
 	}
 	public editor getMyeditor() {

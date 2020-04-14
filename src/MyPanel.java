@@ -12,6 +12,7 @@ import javax.swing.border.LineBorder;
 public class MyPanel extends JPanel{
 	private ArrayList<Shape> shapeArrayList;
 	private ArrayList<Line> lineArrayList;
+	private ArrayList<ArrayList<Shape>> groupShapeList;
 	private int click_x;
 	private int click_y;
 	private Boolean isSelectItem;
@@ -20,11 +21,12 @@ public class MyPanel extends JPanel{
 	int RectHeight;
 	public MyPanel(GUI myGUI) {
 		CircleRadius = 40;
-		RectWidth = 100;
-		RectHeight = 25;
+		RectWidth = 60;
+		RectHeight = 20;
 		// TODO Auto-generated constructor stub
 		this.setShapeArrayList(new ArrayList<Shape>());
 		this.setLineArrayList(new ArrayList<Line>());
+		this.setGroupShapeList(new ArrayList<ArrayList<Shape>>());
 		this.setBorder(new LineBorder(new Color(0, 0, 0)));
 		this.setBounds(187, 41, 753, 484);
 		this.addMouseMotionListener(new MouseAdapter() {
@@ -98,10 +100,13 @@ public class MyPanel extends JPanel{
 									((BasicObject) getShapeArrayList().get(i)).setSelected(false);
 								}
 							}
+							for(int i=0;i<getShapeArrayList().size();i++) {
+								if(((BasicObject) getShapeArrayList().get(i)).isSelected()) {
+									setGroupSelect(getShapeArrayList().get(i));
+								}
+							}
 						}
-						else {
-							diselectShapeList();
-						}
+
 						break;
 					case 1:
 						if(startPoint.getBelongTo() != endPoint.getBelongTo() && startPoint.getBelongTo()!= -1 && endPoint.getBelongTo()!= -1) {
@@ -190,22 +195,63 @@ public class MyPanel extends JPanel{
 			System.out.println("grep depth : "+max_index);
 			diselectShapeList();
 			((BasicObject) getShapeArrayList().get(max_index)).setSelected(true);
+			this.setGroupSelect(this.getShapeArrayList().get(max_index));
 		}
 	}
 	public void diselectShapeList() {
 		for(int i=0;i<getShapeArrayList().size();i++) {((BasicObject) getShapeArrayList().get(i)).setSelected(false);}
 	}
+	public void groupItem() {
+		System.out.println("group item from panel");
+		ArrayList<Shape> groupList = new ArrayList<Shape>();
+		for(int i=0;i<getShapeArrayList().size();i++) {
+			if(((BasicObject) getShapeArrayList().get(i)).isSelected()) {
+				groupList.add(getShapeArrayList().get(i));
+			}
+		}
+		if(!this.getGroupShapeList().contains(groupList)) {
+			this.getGroupShapeList().add(groupList);
+		}
+		System.out.println(this.getGroupShapeList());
+	}
+	public void deGroupItem() {
+		int cursor_x = this.getClick_x();
+		int cursor_y = this.getClick_y();
+		System.out.println("deGroup item from panel");
+		for(int i=0;i<getShapeArrayList().size();i++) {
+			if(((BasicObject) getShapeArrayList().get(i)).contain(cursor_x,cursor_y)) {
+				for(int j=this.getGroupShapeList().size()-1;j>=0;j--) {
+					if(this.getGroupShapeList().get(j).contains(getShapeArrayList().get(i))) {
+						this.getGroupShapeList().remove(j);
+						break;
+					}
+				}
+				break;
+			}
+		}
+		System.out.println(this.getGroupShapeList());
+	}
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);       
-        
-        for(int i=0;i<this.getShapeArrayList().size();i++) {
-        	//System.out.println(((BasicObject) this.getShapeArrayList().get(i)).isSelected());
-        	this.getShapeArrayList().get(i).draw(g);
+        for(Shape element : this.getShapeArrayList()) {
+        	element.draw(g);
         }
-        for(int i=0;i<this.getLineArrayList().size();i++) {
-        	this.getLineArrayList().get(i).draw(g);
+        for(Line element : this.getLineArrayList()) {
+        	element.draw(g);
         }
     }
+	public void setGroupSelect(Shape select_item){
+		ArrayList<Shape> groupItem = new ArrayList<Shape>();
+		for(int i=this.getGroupShapeList().size()-1;i>=0;i--) {
+			if(this.getGroupShapeList().get(i).contains(select_item)) {
+				groupItem = this.getGroupShapeList().get(i);
+				break;
+			}
+		}
+		for(Shape element : groupItem) {
+			((BasicObject) element).setSelected(true);
+		}
+	}
 	public ArrayList<Shape> getShapeArrayList() {
 		return shapeArrayList;
 	}
@@ -236,6 +282,12 @@ public class MyPanel extends JPanel{
 	}
 	public void setLineArrayList(ArrayList<Line> lineArrayList) {
 		this.lineArrayList = lineArrayList;
+	}
+	public ArrayList<ArrayList<Shape>> getGroupShapeList() {
+		return groupShapeList;
+	}
+	public void setGroupShapeList(ArrayList<ArrayList<Shape>> groupShapeList) {
+		this.groupShapeList = groupShapeList;
 	}  
 
 }
