@@ -90,6 +90,18 @@ public class GUI {
 				}
 		);
 		mnEdit.add(mntmDegroupMenuItem);
+		JMenuItem mntmClearMenuItem = new JMenuItem("ClearObjects");
+		mntmClearMenuItem.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						System.out.println(arg0.getActionCommand());
+						panel.clearContents();
+					}
+				}
+		);
+		mnEdit.add(mntmClearMenuItem);
 		frame.getContentPane().setLayout(null);
 		
 	}

@@ -310,6 +310,14 @@ public class MyPanel extends JPanel{
 	}
 	public void setGroupShapeList(ArrayList<ArrayList<Shape>> groupShapeList) {
 		this.groupShapeList = groupShapeList;
+	}
+	public void clearContents() {
+		// TODO Auto-generated method stub
+		this.getShapeArrayList().clear();
+		this.getGroupShapeList().clear();
+		this.getLineArrayList().clear();
+		this.diselectShapeList();
+		repaint();
 	}  
 
 }
