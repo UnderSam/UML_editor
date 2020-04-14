@@ -30,5 +30,6 @@ public class UseCaseObject extends BasicObject{
 				G.fillRect((int)this.getCheckPoint()[i].getX(), (int)this.getCheckPoint()[i].getY(), this.getSelectedDotSize(), this.getSelectedDotSize());
 			}
 		}
+		this.drawCenteredString(G, this.getName(), this.getX(), this.getY(), this.getRadius()*2, this.getRadius()*2);
 	}
 }

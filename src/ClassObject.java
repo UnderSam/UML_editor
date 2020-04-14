@@ -47,5 +47,6 @@ public class ClassObject extends BasicObject{
 				G.fillRect((int)this.getCheckPoint()[i].getX(), (int)this.getCheckPoint()[i].getY(), this.getSelectedDotSize(), this.getSelectedDotSize());
 			}
 		}
+		this.drawCenteredString(G, this.getName(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
 	}
 }

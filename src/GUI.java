@@ -1,3 +1,4 @@
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -6,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class GUI {
 	private JFrame frame;
@@ -55,7 +57,12 @@ public class GUI {
 					public void actionPerformed(ActionEvent arg0) {
 						// TODO Auto-generated method stub
 						System.out.println(arg0.getActionCommand());
-						
+						String name=JOptionPane.showInputDialog(new Frame(),"Enter Name");
+						if(name == null || (name != null && ("".equals(name))))   
+						{
+						    return;
+						}
+						panel.changeNameDialog(name);
 					}
 				}
 		);

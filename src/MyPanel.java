@@ -21,8 +21,8 @@ public class MyPanel extends JPanel{
 	int RectHeight;
 	public MyPanel(GUI myGUI) {
 		CircleRadius = 40;
-		RectWidth = 60;
-		RectHeight = 20;
+		RectWidth = 90;
+		RectHeight = 30;
 		// TODO Auto-generated constructor stub
 		this.setShapeArrayList(new ArrayList<Shape>());
 		this.setLineArrayList(new ArrayList<Line>());
@@ -251,6 +251,28 @@ public class MyPanel extends JPanel{
 		for(Shape element : groupItem) {
 			((BasicObject) element).setSelected(true);
 		}
+	}
+	public boolean isInGroup(Shape select_item) {
+		boolean result = false;
+		for(int i=this.getGroupShapeList().size()-1;i>=0;i--) {
+			if(this.getGroupShapeList().get(i).contains(select_item)) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+	public void changeNameDialog(String name) {
+		for(int i=0;i < this.getShapeArrayList().size();i++) {
+			if(((BasicObject) this.getShapeArrayList().get(i)).contain(this.getClick_x(),this.getClick_y()) && ((BasicObject) this.getShapeArrayList().get(i)).isSelected()) {
+				if(!this.isInGroup(this.getShapeArrayList().get(i))) {
+					//rename if item is not in group
+					((BasicObject) this.getShapeArrayList().get(i)).setName(name);
+				}
+				break;
+			}
+		}
+		repaint();
 	}
 	public ArrayList<Shape> getShapeArrayList() {
 		return shapeArrayList;

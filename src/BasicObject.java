@@ -1,3 +1,5 @@
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 
 public class BasicObject extends Shape{
@@ -29,7 +31,19 @@ public class BasicObject extends Shape{
 		// TODO Auto-generated method stub
 		
 	}
-	
+	public void drawCenteredString(Graphics g, String text, int x,int y, int width, int height) {
+		Font font = new Font(Font.DIALOG, Font.BOLD, 15);
+	    // Get the FontMetrics
+	    FontMetrics metrics = g.getFontMetrics(font);
+	    // Determine the X coordinate for the text
+	    int draw_x = x + (width - metrics.stringWidth(text)) / 2;
+	    // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
+	    int draw_y = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent();
+	    // Set the font
+	    g.setFont(font);
+	    // Draw the String
+	    g.drawString(text, draw_x, draw_y);
+	}
 	public checkPoint getNearestCheckPoint(int x,int y) {
 		double leastDistance = 999;
 		int nearestIndex = -1;
