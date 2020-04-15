@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ public class GUI {
 	private editor myeditor;
 	private int objectCount;
 	private int dotSize;
+	private ArrayList<MyButtons> buttonList;
 	public GUI(editor myeditor) {
 		this.setMyeditor(myeditor);
 		this.frame = myeditor.getFrame();
@@ -30,9 +32,9 @@ public class GUI {
 		int buttonStep = 80;
 		
 		String[] buttonNameList = {"Select","Association","General","Composition","Class","UseCase"};
-		ArrayList<MyButtons> buttonList = new ArrayList<MyButtons>(); 
+		buttonList = new ArrayList<MyButtons>(); 
 		for(int i=0;i<buttonNameList.length;i++) {
-			 buttonList.add(new MyButtons(myeditor, i, buttonNameList[i], buttonStartX, buttonStartY+i*buttonStep, buttonStartWidth, buttonStartHeight));
+			 buttonList.add(new MyButtons(myeditor, this, i, buttonNameList[i], buttonStartX, buttonStartY+i*buttonStep, buttonStartWidth, buttonStartHeight,i));
 		}
 		for(int i=0;i<buttonList.size();i++) {
 			frame.getContentPane().add(buttonList.get(i));
@@ -126,6 +128,22 @@ public class GUI {
 	public void setDotSize(int dotSize) {
 		this.dotSize = dotSize;
 	}
-
-
+	public void setSelectButtons() {
+		for(MyButtons element : this.getButtonList()) {
+			if(element.getType()!=this.getMode()) {
+				element.setBackground(null);
+				element.setSelected(false);
+			}else {
+				element.setBackground(Color.lightGray);
+				element.setSelected(true);
+			}
+		}
+	}
+	public ArrayList<MyButtons> getButtonList() {
+		return buttonList;
+	}
+	public void setButtonList(ArrayList<MyButtons> buttonList) {
+		this.buttonList = buttonList;
+	}
+	
 }
