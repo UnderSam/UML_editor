@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class GUI {
 	private JFrame frame;
@@ -44,6 +46,12 @@ public class GUI {
 
 		frame.getContentPane().setLayout(null);
 		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
 	}
 	public editor getMyeditor() {
 		return myeditor;

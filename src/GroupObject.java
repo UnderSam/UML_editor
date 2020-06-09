@@ -14,7 +14,9 @@ public class GroupObject extends Shape{
 	@Override
 	public void draw(Graphics G) {
 		// TODO Auto-generated method stub
-		
+		for(Shape object:groupArrayList) {
+			object.draw(G);
+		}
 	}
 	public int getDepth() {
 		return depth;
@@ -30,5 +32,12 @@ public class GroupObject extends Shape{
 	}
 	public void addchild(Shape object) {
 		this.getGroupArrayList().add(object);
+	}
+	@Override
+	public void setSelected(boolean isSelected) {
+		super.setSelected(isSelected);
+		for(Shape object : this.groupArrayList) {
+			object.setSelected(isSelected);
+		}
 	}
 }

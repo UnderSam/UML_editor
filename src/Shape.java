@@ -3,10 +3,9 @@ import java.awt.Graphics;
 public abstract class Shape {
 	private int depth; //objectID
 	private int objectid;
-	private boolean isSelected;
+	private boolean isSelected = false;
 	public Shape(int depth,int objectid) {
 		// TODO Auto-generated constructor stub
-		this.setSelected(false);
 		this.setDepth(depth);
 		this.setObjectid(objectid);
 	}
@@ -26,7 +25,6 @@ public abstract class Shape {
 	public boolean isSelected() {
 		return isSelected;
 	}
-
 	public void setSelected(boolean isSelected) {
 		this.isSelected = isSelected;
 	}

@@ -55,11 +55,7 @@ public class Canvas extends JPanel{
 				myGUI.getButtonList().get(myGUI.getMode()).getModer().mousePressed(e);
 				repaint();
 		    }
-		});
-		
-	}
-	public int getDotSize() {
-		return this.dotSize;
+		});	
 	}
 	public void checkSelectedItem(MouseEvent e) {
 		setIsSelectItem(false);
@@ -88,24 +84,26 @@ public class Canvas extends JPanel{
 		}
 	}
 	public void diselectShapeList() {
-		for(int i=0;i<getShapeArrayList().size();i++) {getShapeArrayList().get(i).setSelected(false);}
+		System.out.println("diselect");
+		for(Shape item:this.getShapeArrayList()) {
+			item.setSelected(false);
+		}
+
 	}
 	public void groupItem() {
-		ArrayList<Shape> groupList = new ArrayList<Shape>();
 		GroupObject newGroup = new GroupObject(this.getShapeArrayList().size()+1);
-		for(int i=0;i<getShapeArrayList().size();i++) {
-			if(getShapeArrayList().get(i).getObjectid()==1) {
-				continue;
-			}
-			if((getShapeArrayList().get(i)).isSelected()) {
-				newGroup.addchild(getShapeArrayList().get(i));
-				groupList.add(getShapeArrayList().get(i));
+		for(Shape item:this.getShapeArrayList()) {
+			if(item.getObjectid()!=1 && item.isSelected()) {
+				newGroup.addchild(item);
 			}
 		}
-		if(!this.getGroupShapeList().contains(groupList)) {
-			this.getGroupShapeList().add(groupList);
+		for(Shape item:newGroup.getGroupArrayList()) {
+			System.out.println(item);
+			this.getShapeArrayList().remove(item);
 		}
-		System.out.println(this.getGroupShapeList());
+		this.getShapeArrayList().add(newGroup);
+		System.out.println(newGroup.getGroupArrayList());
+		System.out.println(this.getShapeArrayList());
 	}
 	public void deGroupItem() {
 		int cursor_x = this.getClick_x();
@@ -152,6 +150,9 @@ public class Canvas extends JPanel{
 			}
 		}
 		return result;
+	}
+	public int getDotSize() {
+		return this.dotSize;
 	}
 	public void changeNameDialog(String name) {
 		for(int i=0;i < this.getShapeArrayList().size();i++) {

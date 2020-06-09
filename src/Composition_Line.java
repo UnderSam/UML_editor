@@ -52,6 +52,5 @@ public class Composition_Line extends Line{
 	public void setTheta(double theta) {
 		this.theta = theta;
 	}
-	
 
 }
