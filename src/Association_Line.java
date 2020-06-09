@@ -1,11 +1,10 @@
 import java.awt.Graphics;
-import java.awt.Point;
 
 public class Association_Line extends Line{
 
 	private double theta; 
     
-    // converting values to radians 
+    // converting values to radiant 
 	public Association_Line(checkPoint start,checkPoint end,int dotSize,int depth) {
 		// TODO Auto-generated constructor stub
 		super(start,end,dotSize,depth);

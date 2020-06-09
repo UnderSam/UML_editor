@@ -26,8 +26,8 @@ public class editor {
 	 * Create the application.
 	 */
 	public editor() {
-		initialize();
 		this.setMode(0);
+		initialize();
 	}
 
 	/**

@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class Menubar extends JMenuBar{
 
-	public Menubar(MyPanel panel) {
+	public Menubar(Canvas panel) {
 		// TODO Auto-generated constructor stub
 		JMenu mnFile = new JMenu("File");
 		this.add(mnFile);
@@ -26,7 +26,7 @@ public class Menubar extends JMenuBar{
 					public void actionPerformed(ActionEvent arg0) {
 						// TODO Auto-generated method stub
 						String name=JOptionPane.showInputDialog(new Frame(),"Enter Name");
-						if(name == null || (name != null && ("".equals(name))))   
+						if(name == null || (name != null && ("".equals(name))))
 						{
 						    return;
 						}

@@ -2,14 +2,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
-
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
-public class MyPanel extends JPanel{
+public class Canvas extends JPanel{
 	private ArrayList<Shape> shapeArrayList;
 	private ArrayList<ArrayList<Shape>> groupShapeList;
 	private int click_x;
@@ -18,131 +16,34 @@ public class MyPanel extends JPanel{
 	int CircleRadius;
 	int RectWidth;
 	int RectHeight;
-	public MyPanel(GUI myGUI) {
+	int dotSize;
+	private GUI myGUI;
+	public Canvas(GUI myGUI) {
 		CircleRadius = 40;
 		RectWidth = 90;
 		RectHeight = 30;
+		dotSize = 10;
 		// TODO Auto-generated constructor stub
+		this.setMyGUI(myGUI);
 		this.setShapeArrayList(new ArrayList<Shape>());
 		this.setGroupShapeList(new ArrayList<ArrayList<Shape>>());
 		this.setBorder(new LineBorder(new Color(0, 0, 0)));
 		this.setBounds(187, 41, 753, 484);
 		this.addMouseMotionListener(new MouseAdapter() {
 			@Override
-		    // from MouseWheelListener
-		    public void mouseWheelMoved(MouseWheelEvent e) {
-		        //System.out.println("mouseWheelMoved");
-		    }
-			@Override
 		    public void mouseDragged(MouseEvent e) {
-				//drag the object
-		        int mode = myGUI.getMode();
-		        if (mode==0) {
-		        	//System.out.println("mouseDragged");
-		        	if(getIsSelectItem()) {
-		        		//System.out.println("DraggedItem");
-		        		for(int i=0;i<getShapeArrayList().size();i++) {
-		        			if(getShapeArrayList().get(i).getObjectid()==1) {
-								continue;
-							}
-							if((getShapeArrayList().get(i)).isSelected()) {
-	
-								int click_x = getClick_x();
-								int click_y = getClick_y();
-								int moved_x = e.getX();
-								int moved_y = e.getY();
-		
-								((BasicObject) getShapeArrayList().get(i)).pointMoved(moved_x-click_x,moved_y-click_y);
-							}
-						}
-		        		setClick_x(e.getX());
-			        	setClick_y(e.getY());
-		        	}else {
-		        		//System.out.println("SelectItem");
-		        	}
-		        }
-		        repaint();
+				myGUI.getButtonList().get(myGUI.getMode()).getModer().mouseDragged(e);
+				repaint();
 		    }
 			@Override
 		    public void mouseMoved(MouseEvent e) {
-		        //System.out.println("mouseMoved");
 		    }
 		});
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				//System.out.println("mouseRelease");
-				int mode = myGUI.getMode();
-				checkPoint startPoint = new checkPoint();
-				checkPoint endPoint = new checkPoint();
-				for(int i=0;i<getShapeArrayList().size();i++) {
-					if(getShapeArrayList().get(i).getObjectid()==1) {
-						continue;
-					}
-					if(((BasicObject) getShapeArrayList().get(i)).contain(getClick_x(),getClick_y())) {
-						startPoint = ((BasicObject) getShapeArrayList().get(i)).getNearestCheckPoint(getClick_x(),getClick_y());
-					}
-				}
-				for(int i=0;i<getShapeArrayList().size();i++) {
-					if(getShapeArrayList().get(i).getObjectid()==1) {
-						continue;
-					}
-					if(((BasicObject) getShapeArrayList().get(i)).contain(e.getX(),e.getY())) {
-						endPoint = ((BasicObject) getShapeArrayList().get(i)).getNearestCheckPoint(e.getX(),e.getY());
-					}
-				}
-				switch(mode) {
-					case 0:
-						if(!getIsSelectItem()) {
-							
-							int leftX = e.getX() > getClick_x() ? getClick_x():e.getX();
-							int rightX = e.getX() > getClick_x() ? e.getX() : getClick_x();
-							int upY = e.getY() > getClick_y() ? getClick_y() : e.getY();
-							int downY = e.getY() > getClick_y() ? e.getY() : getClick_y();
-
-							for(int i=0;i<getShapeArrayList().size();i++) {
-								if(getShapeArrayList().get(i).getObjectid()==1) {
-									continue;
-								}
-								if(((BasicObject) getShapeArrayList().get(i)).isin(leftX,upY,rightX,downY)) {
-									( getShapeArrayList().get(i)).setSelected(true);
-									setIsSelectItem(true);
-								}else {
-									( getShapeArrayList().get(i)).setSelected(false);
-								}
-							}
-							for(int i=0;i<getShapeArrayList().size();i++) {
-								if(getShapeArrayList().get(i).getObjectid()==1) {
-									continue;
-								}
-								if(( getShapeArrayList().get(i)).isSelected()) {
-									setGroupSelect(getShapeArrayList().get(i));
-								}
-							}
-						}
-
-						break;
-					case 1:
-						if(startPoint.getBelongTo() != endPoint.getBelongTo() && startPoint.getBelongTo()!= -1 && endPoint.getBelongTo()!= -1) {
-							getShapeArrayList().add(new Association_Line(startPoint, endPoint, myGUI.getDotSize(),getShapeArrayList().size()+1));
-						}
-						diselectShapeList();
-						break;
-					case 2:
-						if(startPoint.getBelongTo() != endPoint.getBelongTo() && startPoint.getBelongTo()!= -1 && endPoint.getBelongTo()!= -1) {
-							getShapeArrayList().add(new Generalization_Line(startPoint, endPoint, myGUI.getDotSize(),getShapeArrayList().size()+1));
-						}
-						diselectShapeList();
-						break;
-					case 3:
-						if(startPoint.getBelongTo() != endPoint.getBelongTo() && startPoint.getBelongTo()!= -1 && endPoint.getBelongTo()!= -1) {
-							getShapeArrayList().add(new Composition_Line(startPoint, endPoint, myGUI.getDotSize(),getShapeArrayList().size()+1));
-						}
-						diselectShapeList();
-						break;
-					default:
-						break;
-				}
+				myGUI.getButtonList().get(myGUI.getMode()).getModer().mouseReleased(e);
 				repaint();
 			}
 			@Override
@@ -151,43 +52,14 @@ public class MyPanel extends JPanel{
 		    }
 			@Override
 		    public void mousePressed(MouseEvent e) {
-		        //System.out.println("mousePressed");
-		        diselectShapeList();
-		        repaint();
-		        setClick_x(e.getX());
-				setClick_y(e.getY());
-		        int mode = myGUI.getMode();
-		        if(mode < 4) {
-		        	checkSelectedItem(e);
-		        }
-				switch(mode){
-					case 0:
-						break;
-					case 1:
-					case 2:
-					case 3:
-						break;
-					case 4:
-						getShapeArrayList().add(new ClassObject("", e.getX(), e.getY(), getShapeArrayList().size()+1, RectWidth, RectHeight, myGUI.getDotSize()));
-						break;
-					case 5:
-						getShapeArrayList().add(new UseCaseObject("", e.getX(), e.getY(), getShapeArrayList().size()+1, CircleRadius, myGUI.getDotSize())); // radius = 20
-						break;
-					default :
-						break;
-				}
+				myGUI.getButtonList().get(myGUI.getMode()).getModer().mousePressed(e);
 				repaint();
-		    }
-			@Override
-		    public void mouseEntered(MouseEvent e) {
-		        //System.out.println("mouseEntered");
-		    }
-			@Override
-		    public void mouseExited(MouseEvent e) {
-		        //System.out.println("mouseExited");
 		    }
 		});
 		
+	}
+	public int getDotSize() {
+		return this.dotSize;
 	}
 	public void checkSelectedItem(MouseEvent e) {
 		setIsSelectItem(false);
@@ -210,7 +82,6 @@ public class MyPanel extends JPanel{
 			}
 		}
 		if(max_index != -1) {
-			System.out.println("grep depth : "+max_index);
 			diselectShapeList();
 			getShapeArrayList().get(max_index).setSelected(true);
 			this.setGroupSelect(this.getShapeArrayList().get(max_index));
@@ -220,7 +91,6 @@ public class MyPanel extends JPanel{
 		for(int i=0;i<getShapeArrayList().size();i++) {getShapeArrayList().get(i).setSelected(false);}
 	}
 	public void groupItem() {
-		System.out.println("group item from panel");
 		ArrayList<Shape> groupList = new ArrayList<Shape>();
 		GroupObject newGroup = new GroupObject(this.getShapeArrayList().size()+1);
 		for(int i=0;i<getShapeArrayList().size();i++) {
@@ -240,7 +110,6 @@ public class MyPanel extends JPanel{
 	public void deGroupItem() {
 		int cursor_x = this.getClick_x();
 		int cursor_y = this.getClick_y();
-		System.out.println("deGroup item from panel");
 		for(int i=0;i<getShapeArrayList().size();i++) {
 			if(getShapeArrayList().get(i).getObjectid()==1) {
 				continue;
@@ -255,7 +124,6 @@ public class MyPanel extends JPanel{
 				break;
 			}
 		}
-		System.out.println(this.getGroupShapeList());
 	}
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);       
@@ -306,7 +174,6 @@ public class MyPanel extends JPanel{
 	public void setShapeArrayList(ArrayList<Shape> shapeArrayList) {
 		this.shapeArrayList = (ArrayList<Shape>) shapeArrayList;
 	}
-	
 	public int getClick_x() {
 		return click_x;
 	}
@@ -337,6 +204,12 @@ public class MyPanel extends JPanel{
 		this.getGroupShapeList().clear();
 		this.diselectShapeList();
 		repaint();
+	}
+	public GUI getMyGUI() {
+		return myGUI;
+	}
+	public void setMyGUI(GUI myGUI) {
+		this.myGUI = myGUI;
 	}  
 
 }

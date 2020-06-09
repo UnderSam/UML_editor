@@ -1,27 +1,16 @@
 import java.awt.Color;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
 public class GUI {
 	private JFrame frame;
 	private editor myeditor;
 	private int objectCount;
-	private int dotSize;
 	private ArrayList<MyButtons> buttonList;
 	public GUI(editor myeditor) {
 		this.setMyeditor(myeditor);
 		this.frame = myeditor.getFrame();
 		this.setObjectCount(0);
-		this.setDotSize(10);
 		// TODO Auto-generated constructor stub
 	}
 	public void initialize() {
@@ -31,23 +20,28 @@ public class GUI {
 		int buttonStartWidth = 124; 
 		int buttonStartHeight = 59;
 		int buttonStep = 80;
+		Canvas canvas = new Canvas(this);
+		frame.getContentPane().add(canvas);
+		Menubar menubar = new Menubar(canvas);
+		frame.setJMenuBar(menubar);
 		
 		String[] buttonNameList = {"Select","Association","General","Composition","Class","UseCase"};
+		Mode[] modelist = {
+				new Selectmode(0, canvas),
+				new Assoclinemode(1, canvas),
+				new Composlinemode(2, canvas),
+				new Generalinemode(3, canvas),
+				new Classobjmode(4, canvas),
+				new Usecasobjmode(5, canvas)
+		};
 		buttonList = new ArrayList<MyButtons>(); 
 		for(int i=0;i<buttonNameList.length;i++) {
-			 buttonList.add(new MyButtons(myeditor, this, i, buttonNameList[i], buttonStartX, buttonStartY+i*buttonStep, buttonStartWidth, buttonStartHeight,i));
+			 buttonList.add(new MyButtons(this, modelist[i], buttonNameList[i], buttonStartX, buttonStartY+i*buttonStep, buttonStartWidth, buttonStartHeight));
 		}
 		for(int i=0;i<buttonList.size();i++) {
 			frame.getContentPane().add(buttonList.get(i));
 		}
-		MyPanel panel = new MyPanel(this);
-		frame.getContentPane().add(panel);
-		
-		Menubar menubar = new Menubar(panel);
 
-		frame.setJMenuBar(menubar);
-		
-		
 		frame.getContentPane().setLayout(null);
 		
 	}
@@ -66,15 +60,9 @@ public class GUI {
 	public void setObjectCount(int objectCount) {
 		this.objectCount = objectCount;
 	}
-	public int getDotSize() {
-		return dotSize;
-	}
-	public void setDotSize(int dotSize) {
-		this.dotSize = dotSize;
-	}
 	public void setSelectButtons() {
 		for(MyButtons element : this.getButtonList()) {
-			if(element.getType()!=this.getMode()) {
+			if(element.getModer().getMode()!=this.getMode()) {
 				element.setBackground(null);
 				element.setSelected(false);
 			}else {
@@ -88,6 +76,10 @@ public class GUI {
 	}
 	public void setButtonList(ArrayList<MyButtons> buttonList) {
 		this.buttonList = buttonList;
+	}
+	public void setMode(int mode) {
+		// TODO Auto-generated method stub
+		this.getMyeditor().setMode(mode);
 	}
 	
 }
