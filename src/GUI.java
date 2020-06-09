@@ -3,6 +3,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -42,68 +43,11 @@ public class GUI {
 		MyPanel panel = new MyPanel(this);
 		frame.getContentPane().add(panel);
 		
-		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		Menubar menubar = new Menubar(panel);
+
+		frame.setJMenuBar(menubar);
 		
-		JMenu mnFile = new JMenu("File");
-		menuBar.add(mnFile);
 		
-		JMenu mnEdit = new JMenu("Edit");
-		menuBar.add(mnEdit);
-		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Change Object name");
-		mnEdit.add(mntmNewMenuItem);
-		mntmNewMenuItem.addActionListener(
-				new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						// TODO Auto-generated method stub
-						System.out.println(arg0.getActionCommand());
-						String name=JOptionPane.showInputDialog(new Frame(),"Enter Name");
-						if(name == null || (name != null && ("".equals(name))))   
-						{
-						    return;
-						}
-						panel.changeNameDialog(name);
-					}
-				}
-		);
-		JMenuItem mntmGroupMenuItem = new JMenuItem("Group");
-		mntmGroupMenuItem.addActionListener(
-				new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						// TODO Auto-generated method stub
-						System.out.println(arg0.getActionCommand());
-						panel.groupItem();
-					}
-				}
-		);
-		mnEdit.add(mntmGroupMenuItem );
-		JMenuItem mntmDegroupMenuItem = new JMenuItem("deGroup");
-		mntmDegroupMenuItem.addActionListener(
-				new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						// TODO Auto-generated method stub
-						System.out.println(arg0.getActionCommand());
-						panel.deGroupItem();
-					}
-				}
-		);
-		mnEdit.add(mntmDegroupMenuItem);
-		JMenuItem mntmClearMenuItem = new JMenuItem("ClearObjects");
-		mntmClearMenuItem.addActionListener(
-				new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						// TODO Auto-generated method stub
-						System.out.println(arg0.getActionCommand());
-						panel.clearContents();
-					}
-				}
-		);
-		mnEdit.add(mntmClearMenuItem);
 		frame.getContentPane().setLayout(null);
 		
 	}

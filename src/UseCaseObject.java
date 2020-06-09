@@ -26,9 +26,7 @@ public class UseCaseObject extends BasicObject{
 		G.setColor(Color.black);
 		G.drawOval(this.getX(), this.getY(), this.getRadius()*2, this.getRadius()*2);
 		if(this.isSelected()) {
-			for(int i=0;i<this.getCheckPoint().length;i++) {
-				G.fillRect((int)this.getCheckPoint()[i].getX(), (int)this.getCheckPoint()[i].getY(), this.getSelectedDotSize(), this.getSelectedDotSize());
-			}
+			this.drawPort(G);
 		}
 		this.drawCenteredString(G, this.getName(), this.getX(), this.getY(), this.getRadius()*2, this.getRadius()*2);
 	}

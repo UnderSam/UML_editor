@@ -43,9 +43,7 @@ public class ClassObject extends BasicObject{
 			G.drawRect(actual_x, actual_y+i*this.getHeight(), this.getWidth(), this.getHeight());
 		}
 		if(this.isSelected()) {
-			for(int i=0;i<this.getCheckPoint().length;i++) {
-				G.fillRect((int)this.getCheckPoint()[i].getX(), (int)this.getCheckPoint()[i].getY(), this.getSelectedDotSize(), this.getSelectedDotSize());
-			}
+			this.drawPort(G);
 		}
 		this.drawCenteredString(G, this.getName(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
 	}

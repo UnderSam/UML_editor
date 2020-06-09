@@ -14,13 +14,13 @@ public abstract class Line extends Shape{
 	/**
 	 * 
 	 */
-	private Point startPoint;
-	private Point endPoint;
+	private checkPoint startPoint;
+	private checkPoint endPoint;
 	private int bold;
 	private int dotSize;
 	private double scaler;
 	private static int objectID = 1; //line
-	public Line(Point start,Point end,int dotSize,int depth) {
+	public Line(checkPoint start,checkPoint end,int dotSize,int depth) {
 		// TODO Auto-generated constructor stub
 		super(depth,objectID);
 		this.setStartPoint(start);
@@ -50,14 +50,16 @@ public abstract class Line extends Shape{
 		double new_start_y = this.getStartPoint().getY()+(this.getEndPoint().getY()-this.getEndPoint().getY())/(0.1)*(this.getDistance())+1;
 		return new_start_y;
 	}
-	public void setStartPoint(Point startPoint) {
+	public void setStartPoint(checkPoint startPoint) {
 		this.startPoint = startPoint;
+		startPoint.getLines().add(this);
 	}
 	public Point getEndPoint() {
 		return endPoint;
 	}
-	public void setEndPoint(Point endPoint) {
+	public void setEndPoint(checkPoint endPoint) {
 		this.endPoint = endPoint;
+		endPoint.getLines().add(this);
 	}
 	public int getBold() {
 		return bold;

@@ -222,11 +222,13 @@ public class MyPanel extends JPanel{
 	public void groupItem() {
 		System.out.println("group item from panel");
 		ArrayList<Shape> groupList = new ArrayList<Shape>();
+		GroupObject newGroup = new GroupObject(this.getShapeArrayList().size()+1);
 		for(int i=0;i<getShapeArrayList().size();i++) {
 			if(getShapeArrayList().get(i).getObjectid()==1) {
 				continue;
 			}
 			if((getShapeArrayList().get(i)).isSelected()) {
+				newGroup.addchild(getShapeArrayList().get(i));
 				groupList.add(getShapeArrayList().get(i));
 			}
 		}

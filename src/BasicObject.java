@@ -23,10 +23,10 @@ public class BasicObject extends Shape{
 		this.setCheck_width(width);
 		this.setCheck_height(height);
 		this.setCheckPoint(new checkPoint[] {
-				new checkPoint(x+width/2-this.selectedDotSize/2,y-this.selectedDotSize/2,depth), //top
-				new checkPoint(x-this.selectedDotSize/2,y+height/2-this.selectedDotSize/2,depth), // left
-				new checkPoint(x+width-this.selectedDotSize/2,y+height/2-this.selectedDotSize/2,depth), //right
-				new checkPoint(x+width/2-this.selectedDotSize/2,y+height-this.selectedDotSize/2,depth) // down
+				new checkPoint(x+width/2-this.selectedDotSize/2,y-this.selectedDotSize/2,depth,dotSize), //top
+				new checkPoint(x-this.selectedDotSize/2,y+height/2-this.selectedDotSize/2,depth,dotSize), // left
+				new checkPoint(x+width-this.selectedDotSize/2,y+height/2-this.selectedDotSize/2,depth,dotSize), //right
+				new checkPoint(x+width/2-this.selectedDotSize/2,y+height-this.selectedDotSize/2,depth,dotSize) // down
 		});
 	}
 
@@ -86,6 +86,11 @@ public class BasicObject extends Shape{
 			isIn = true;
 		}
 		return isIn;
+	}
+	public void drawPort(Graphics G) {
+		for(checkPoint port:this.getCheckPoint()) {
+			port.draw(G);
+		}
 	}
 	public int getX() {
 		return x;
