@@ -5,16 +5,20 @@ import java.awt.Graphics;
 public class BasicObject extends Shape{
 
 	private String name;
-	private boolean isSelected;
+
 	private int selectedDotSize;
 	private int check_width;
 	private int check_height;
+	private int x;
+	private int y;
 	private checkPoint[] checkPoint;
+	private static int objectID = 0; //rect
 	public BasicObject(String name,int x,int y,int depth,int width,int height,int dotSize) {
 		// TODO Auto-generated constructor stub
-		super(x,y,depth);
+		super(depth,objectID);
+		this.x=x;
+		this.y=y;
 		this.setName(name);
-		this.setSelected(false);
 		this.setSelectedDotSize(dotSize);
 		this.setCheck_width(width);
 		this.setCheck_height(height);
@@ -83,22 +87,24 @@ public class BasicObject extends Shape{
 		}
 		return isIn;
 	}
+	public int getX() {
+		return x;
+	}
+	public void setX(int x) {
+		this.x = x;
+	}
+	public int getY() {
+		return y;
+	}
+	public void setY(int y) {
+		this.y = y;
+	}
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public boolean isSelected() {
-		return isSelected;
-	}
-
-	public void setSelected(boolean isSelected) {
-		this.isSelected = isSelected;
-	}
-
 	public int getSelectedDotSize() {
 		return selectedDotSize;
 	}

@@ -11,7 +11,6 @@ import javax.swing.border.LineBorder;
 @SuppressWarnings("serial")
 public class MyPanel extends JPanel{
 	private ArrayList<Shape> shapeArrayList;
-	private ArrayList<Line> lineArrayList;
 	private ArrayList<ArrayList<Shape>> groupShapeList;
 	private int click_x;
 	private int click_y;
@@ -25,7 +24,6 @@ public class MyPanel extends JPanel{
 		RectHeight = 30;
 		// TODO Auto-generated constructor stub
 		this.setShapeArrayList(new ArrayList<Shape>());
-		this.setLineArrayList(new ArrayList<Line>());
 		this.setGroupShapeList(new ArrayList<ArrayList<Shape>>());
 		this.setBorder(new LineBorder(new Color(0, 0, 0)));
 		this.setBounds(187, 41, 753, 484);
@@ -37,13 +35,17 @@ public class MyPanel extends JPanel{
 		    }
 			@Override
 		    public void mouseDragged(MouseEvent e) {
+				//drag the object
 		        int mode = myGUI.getMode();
 		        if (mode==0) {
 		        	//System.out.println("mouseDragged");
 		        	if(getIsSelectItem()) {
 		        		//System.out.println("DraggedItem");
 		        		for(int i=0;i<getShapeArrayList().size();i++) {
-							if(((BasicObject) getShapeArrayList().get(i)).isSelected()) {
+		        			if(getShapeArrayList().get(i).getObjectid()==1) {
+								continue;
+							}
+							if((getShapeArrayList().get(i)).isSelected()) {
 	
 								int click_x = getClick_x();
 								int click_y = getClick_y();
@@ -74,11 +76,17 @@ public class MyPanel extends JPanel{
 				checkPoint startPoint = new checkPoint();
 				checkPoint endPoint = new checkPoint();
 				for(int i=0;i<getShapeArrayList().size();i++) {
+					if(getShapeArrayList().get(i).getObjectid()==1) {
+						continue;
+					}
 					if(((BasicObject) getShapeArrayList().get(i)).contain(getClick_x(),getClick_y())) {
 						startPoint = ((BasicObject) getShapeArrayList().get(i)).getNearestCheckPoint(getClick_x(),getClick_y());
 					}
 				}
 				for(int i=0;i<getShapeArrayList().size();i++) {
+					if(getShapeArrayList().get(i).getObjectid()==1) {
+						continue;
+					}
 					if(((BasicObject) getShapeArrayList().get(i)).contain(e.getX(),e.getY())) {
 						endPoint = ((BasicObject) getShapeArrayList().get(i)).getNearestCheckPoint(e.getX(),e.getY());
 					}
@@ -93,15 +101,21 @@ public class MyPanel extends JPanel{
 							int downY = e.getY() > getClick_y() ? e.getY() : getClick_y();
 
 							for(int i=0;i<getShapeArrayList().size();i++) {
+								if(getShapeArrayList().get(i).getObjectid()==1) {
+									continue;
+								}
 								if(((BasicObject) getShapeArrayList().get(i)).isin(leftX,upY,rightX,downY)) {
-									((BasicObject) getShapeArrayList().get(i)).setSelected(true);
+									( getShapeArrayList().get(i)).setSelected(true);
 									setIsSelectItem(true);
 								}else {
-									((BasicObject) getShapeArrayList().get(i)).setSelected(false);
+									( getShapeArrayList().get(i)).setSelected(false);
 								}
 							}
 							for(int i=0;i<getShapeArrayList().size();i++) {
-								if(((BasicObject) getShapeArrayList().get(i)).isSelected()) {
+								if(getShapeArrayList().get(i).getObjectid()==1) {
+									continue;
+								}
+								if(( getShapeArrayList().get(i)).isSelected()) {
 									setGroupSelect(getShapeArrayList().get(i));
 								}
 							}
@@ -110,19 +124,19 @@ public class MyPanel extends JPanel{
 						break;
 					case 1:
 						if(startPoint.getBelongTo() != endPoint.getBelongTo() && startPoint.getBelongTo()!= -1 && endPoint.getBelongTo()!= -1) {
-							getLineArrayList().add(new Association_Line(startPoint, endPoint, myGUI.getDotSize()));
+							getShapeArrayList().add(new Association_Line(startPoint, endPoint, myGUI.getDotSize(),getShapeArrayList().size()+1));
 						}
 						diselectShapeList();
 						break;
 					case 2:
 						if(startPoint.getBelongTo() != endPoint.getBelongTo() && startPoint.getBelongTo()!= -1 && endPoint.getBelongTo()!= -1) {
-							getLineArrayList().add(new Generalization_Line(startPoint, endPoint, myGUI.getDotSize()));
+							getShapeArrayList().add(new Generalization_Line(startPoint, endPoint, myGUI.getDotSize(),getShapeArrayList().size()+1));
 						}
 						diselectShapeList();
 						break;
 					case 3:
 						if(startPoint.getBelongTo() != endPoint.getBelongTo() && startPoint.getBelongTo()!= -1 && endPoint.getBelongTo()!= -1) {
-							getLineArrayList().add(new Composition_Line(startPoint, endPoint, myGUI.getDotSize()));
+							getShapeArrayList().add(new Composition_Line(startPoint, endPoint, myGUI.getDotSize(),getShapeArrayList().size()+1));
 						}
 						diselectShapeList();
 						break;
@@ -180,7 +194,11 @@ public class MyPanel extends JPanel{
 		// set selected item by order
 		int max_depth = -999;
 		int max_index = -1;
+		
 		for(int i=0;i<getShapeArrayList().size();i++) {
+			if(getShapeArrayList().get(i).getObjectid()==1) {
+				continue;
+			}
 			if(((BasicObject) getShapeArrayList().get(i)).contain(e.getX(),e.getY())) {
 				if(getShapeArrayList().get(i).getDepth() > max_depth) {
 					max_depth = getShapeArrayList().get(i).getDepth();
@@ -188,24 +206,27 @@ public class MyPanel extends JPanel{
 				}
 				setIsSelectItem(true);
 			}else {
-				((BasicObject) getShapeArrayList().get(i)).setSelected(false);
+				getShapeArrayList().get(i).setSelected(false);
 			}
 		}
 		if(max_index != -1) {
 			System.out.println("grep depth : "+max_index);
 			diselectShapeList();
-			((BasicObject) getShapeArrayList().get(max_index)).setSelected(true);
+			getShapeArrayList().get(max_index).setSelected(true);
 			this.setGroupSelect(this.getShapeArrayList().get(max_index));
 		}
 	}
 	public void diselectShapeList() {
-		for(int i=0;i<getShapeArrayList().size();i++) {((BasicObject) getShapeArrayList().get(i)).setSelected(false);}
+		for(int i=0;i<getShapeArrayList().size();i++) {getShapeArrayList().get(i).setSelected(false);}
 	}
 	public void groupItem() {
 		System.out.println("group item from panel");
 		ArrayList<Shape> groupList = new ArrayList<Shape>();
 		for(int i=0;i<getShapeArrayList().size();i++) {
-			if(((BasicObject) getShapeArrayList().get(i)).isSelected()) {
+			if(getShapeArrayList().get(i).getObjectid()==1) {
+				continue;
+			}
+			if((getShapeArrayList().get(i)).isSelected()) {
 				groupList.add(getShapeArrayList().get(i));
 			}
 		}
@@ -219,6 +240,9 @@ public class MyPanel extends JPanel{
 		int cursor_y = this.getClick_y();
 		System.out.println("deGroup item from panel");
 		for(int i=0;i<getShapeArrayList().size();i++) {
+			if(getShapeArrayList().get(i).getObjectid()==1) {
+				continue;
+			}
 			if(((BasicObject) getShapeArrayList().get(i)).contain(cursor_x,cursor_y)) {
 				for(int j=this.getGroupShapeList().size()-1;j>=0;j--) {
 					if(this.getGroupShapeList().get(j).contains(getShapeArrayList().get(i))) {
@@ -236,9 +260,6 @@ public class MyPanel extends JPanel{
         for(Shape element : this.getShapeArrayList()) {
         	element.draw(g);
         }
-        for(Line element : this.getLineArrayList()) {
-        	element.draw(g);
-        }
     }
 	public void setGroupSelect(Shape select_item){
 		ArrayList<Shape> groupItem = new ArrayList<Shape>();
@@ -249,7 +270,7 @@ public class MyPanel extends JPanel{
 			}
 		}
 		for(Shape element : groupItem) {
-			((BasicObject) element).setSelected(true);
+			element.setSelected(true);
 		}
 	}
 	public boolean isInGroup(Shape select_item) {
@@ -264,7 +285,10 @@ public class MyPanel extends JPanel{
 	}
 	public void changeNameDialog(String name) {
 		for(int i=0;i < this.getShapeArrayList().size();i++) {
-			if(((BasicObject) this.getShapeArrayList().get(i)).contain(this.getClick_x(),this.getClick_y()) && ((BasicObject) this.getShapeArrayList().get(i)).isSelected()) {
+			if(getShapeArrayList().get(i).getObjectid()==1) {
+				continue;
+			}
+			if(((BasicObject) this.getShapeArrayList().get(i)).contain(this.getClick_x(),this.getClick_y()) && this.getShapeArrayList().get(i).isSelected()) {
 				if(!this.isInGroup(this.getShapeArrayList().get(i))) {
 					//rename if item is not in group
 					((BasicObject) this.getShapeArrayList().get(i)).setName(name);
@@ -299,12 +323,6 @@ public class MyPanel extends JPanel{
 	public void setIsSelectItem(Boolean isSelectItem) {
 		this.isSelectItem = isSelectItem;
 	}
-	public ArrayList<Line> getLineArrayList() {
-		return lineArrayList;
-	}
-	public void setLineArrayList(ArrayList<Line> lineArrayList) {
-		this.lineArrayList = lineArrayList;
-	}
 	public ArrayList<ArrayList<Shape>> getGroupShapeList() {
 		return groupShapeList;
 	}
@@ -315,7 +333,6 @@ public class MyPanel extends JPanel{
 		// TODO Auto-generated method stub
 		this.getShapeArrayList().clear();
 		this.getGroupShapeList().clear();
-		this.getLineArrayList().clear();
 		this.diselectShapeList();
 		repaint();
 	}  

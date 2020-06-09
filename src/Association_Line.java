@@ -6,9 +6,9 @@ public class Association_Line extends Line{
 	private double theta; 
     
     // converting values to radians 
-	public Association_Line(Point start,Point end,int dotSize) {
+	public Association_Line(Point start,Point end,int dotSize,int depth) {
 		// TODO Auto-generated constructor stub
-		super(start,end,dotSize);
+		super(start,end,dotSize,depth);
 		this.setTheta(270);
 	}
 

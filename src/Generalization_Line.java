@@ -5,9 +5,9 @@ import java.awt.Point;
 public class Generalization_Line extends Line{
 
 	private double theta; 
-	public Generalization_Line(Point start,Point end,int dotSize) {
+	public Generalization_Line(Point start,Point end,int dotSize,int depth) {
 		// TODO Auto-generated constructor stub
-		super(start,end,dotSize);
+		super(start,end,dotSize,depth);
 		this.setTheta(270);
 	}
 

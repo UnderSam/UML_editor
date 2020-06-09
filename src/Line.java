@@ -9,7 +9,7 @@ import java.awt.Point;
  * @author ChengJu
  *
  */
-public abstract class Line {
+public abstract class Line extends Shape{
 
 	/**
 	 * 
@@ -19,8 +19,10 @@ public abstract class Line {
 	private int bold;
 	private int dotSize;
 	private double scaler;
-	public Line(Point start,Point end,int dotSize) {
+	private static int objectID = 1; //line
+	public Line(Point start,Point end,int dotSize,int depth) {
 		// TODO Auto-generated constructor stub
+		super(depth,objectID);
 		this.setStartPoint(start);
 		this.setEndPoint(end);
 		this.setBold(3);

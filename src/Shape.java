@@ -1,14 +1,14 @@
 import java.awt.Graphics;
 
 public abstract class Shape {
-	private int depth;
-	private int x;
-	private int y;
-	public Shape(int x,int y,int depth) {
+	private int depth; //objectID
+	private int objectid;
+	private boolean isSelected;
+	public Shape(int depth,int objectid) {
 		// TODO Auto-generated constructor stub
+		this.setSelected(false);
 		this.setDepth(depth);
-		this.setX(x);
-		this.setY(y);
+		this.setObjectid(objectid);
 	}
 	public abstract void draw(Graphics G);
 	public int getDepth() {
@@ -17,16 +17,17 @@ public abstract class Shape {
 	public void setDepth(int depth) {
 		this.depth = depth;
 	}
-	public int getX() {
-		return x;
+	public int getObjectid() {
+		return objectid;
 	}
-	public void setX(int x) {
-		this.x = x;
+	public void setObjectid(int objectid) {
+		this.objectid = objectid;
 	}
-	public int getY() {
-		return y;
+	public boolean isSelected() {
+		return isSelected;
 	}
-	public void setY(int y) {
-		this.y = y;
+
+	public void setSelected(boolean isSelected) {
+		this.isSelected = isSelected;
 	}
 }
