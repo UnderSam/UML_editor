@@ -168,10 +168,10 @@ public class MyPanel extends JPanel{
 					case 3:
 						break;
 					case 4:
-						getShapeArrayList().add(new ClassObject("default", e.getX(), e.getY(), getShapeArrayList().size()+1, RectWidth, RectHeight, myGUI.getDotSize()));
+						getShapeArrayList().add(new ClassObject("", e.getX(), e.getY(), getShapeArrayList().size()+1, RectWidth, RectHeight, myGUI.getDotSize()));
 						break;
 					case 5:
-						getShapeArrayList().add(new UseCaseObject("default", e.getX(), e.getY(), getShapeArrayList().size()+1, CircleRadius, myGUI.getDotSize())); // radius = 20
+						getShapeArrayList().add(new UseCaseObject("", e.getX(), e.getY(), getShapeArrayList().size()+1, CircleRadius, myGUI.getDotSize())); // radius = 20
 						break;
 					default :
 						break;
