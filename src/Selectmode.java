@@ -37,22 +37,24 @@ public class Selectmode extends Mode{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		new checkPoint();
-		new checkPoint();
 		for(int i=0;i<this.getCanvas().getShapeArrayList().size();i++) {
 			if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==1) {
 				continue;
 			}
-			if(((BasicObject) this.getCanvas().getShapeArrayList().get(i)).contain(this.getCanvas().getClick_x(),this.getCanvas().getClick_y())) {
-				((BasicObject) this.getCanvas().getShapeArrayList().get(i)).getNearestCheckPoint(this.getCanvas().getClick_x(),this.getCanvas().getClick_y());
+			if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==0) {
+				if(((BasicObject) this.getCanvas().getShapeArrayList().get(i)).contain(this.getCanvas().getClick_x(),this.getCanvas().getClick_y())) {
+					((BasicObject) this.getCanvas().getShapeArrayList().get(i)).getNearestCheckPoint(this.getCanvas().getClick_x(),this.getCanvas().getClick_y());
+				}
 			}
 		}
 		for(int i=0;i<this.getCanvas().getShapeArrayList().size();i++) {
 			if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==1) {
 				continue;
 			}
-			if(((BasicObject) this.getCanvas().getShapeArrayList().get(i)).contain(e.getX(),e.getY())) {
-				((BasicObject) this.getCanvas().getShapeArrayList().get(i)).getNearestCheckPoint(e.getX(),e.getY());
+			if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==0) {
+				if(((BasicObject) this.getCanvas().getShapeArrayList().get(i)).contain(e.getX(),e.getY())) {
+					((BasicObject) this.getCanvas().getShapeArrayList().get(i)).getNearestCheckPoint(e.getX(),e.getY());
+				}
 			}
 		}
 		////mode///
@@ -67,19 +69,13 @@ public class Selectmode extends Mode{
 				if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==1) {
 					continue;
 				}
-				if(((BasicObject) this.getCanvas().getShapeArrayList().get(i)).isin(leftX,upY,rightX,downY)) {
-					( this.getCanvas().getShapeArrayList().get(i)).setSelected(true);
-					this.getCanvas().setIsSelectItem(true);
-				}else {
-					( this.getCanvas().getShapeArrayList().get(i)).setSelected(false);
-				}
-			}
-			for(int i=0;i<this.getCanvas().getShapeArrayList().size();i++) {
-				if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==1) {
-					continue;
-				}
-				if(( this.getCanvas().getShapeArrayList().get(i)).isSelected()) {
-					this.getCanvas().setGroupSelect(this.getCanvas().getShapeArrayList().get(i));
+				if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==0) {
+					if(((BasicObject) this.getCanvas().getShapeArrayList().get(i)).isin(leftX,upY,rightX,downY)) {
+						( this.getCanvas().getShapeArrayList().get(i)).setSelected(true);
+						this.getCanvas().setIsSelectItem(true);
+					}else {
+						( this.getCanvas().getShapeArrayList().get(i)).setSelected(false);
+					}
 				}
 			}
 		}

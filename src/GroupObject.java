@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class GroupObject extends Shape{
@@ -39,5 +40,26 @@ public class GroupObject extends Shape{
 		for(Shape object : this.groupArrayList) {
 			object.setSelected(isSelected);
 		}
+	}
+	public boolean contain(MouseEvent e) {
+		System.out.println("Check group contain");
+		boolean isContain=false;
+		for(Shape item:this.getGroupArrayList()) {
+			System.out.println("Check item "+item.getObjectid());
+			if(item.getObjectid()==0) {
+				if(((BasicObject)item).contain(e.getX(), e.getY())) {
+					isContain = true;
+					break;
+				}
+			}
+			else if(item.getObjectid()==2) {
+				if(this.contain(e)) {
+					isContain = true;
+					break;
+				}
+			}
+		}
+		System.out.println("return group contain : "+isContain);
+		return isContain;
 	}
 }

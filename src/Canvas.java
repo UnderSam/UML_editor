@@ -67,21 +67,38 @@ public class Canvas extends JPanel{
 			if(getShapeArrayList().get(i).getObjectid()==1) {
 				continue;
 			}
-			if(((BasicObject) getShapeArrayList().get(i)).contain(e.getX(),e.getY())) {
-				if(getShapeArrayList().get(i).getDepth() > max_depth) {
-					max_depth = getShapeArrayList().get(i).getDepth();
-					max_index = i;
+			if(getShapeArrayList().get(i).getObjectid()==0) {
+				if(((BasicObject) getShapeArrayList().get(i)).contain(e.getX(),e.getY())) {
+					if(getShapeArrayList().get(i).getDepth() > max_depth) {
+						max_depth = getShapeArrayList().get(i).getDepth();
+						max_index = i;
+					}
+					setIsSelectItem(true);
+				}else {
+					getShapeArrayList().get(i).setSelected(false);
 				}
-				setIsSelectItem(true);
-			}else {
-				getShapeArrayList().get(i).setSelected(false);
+			}
+			else if(getShapeArrayList().get(i).getObjectid()==2) {
+				System.out.println("Check group");
+				if(((GroupObject)getShapeArrayList().get(i)).contain(e)) {
+					setIsSelectItem(true);
+					max_index = i;
+				}else {
+					getShapeArrayList().get(i).setSelected(false);
+				}
 			}
 		}
 		if(max_index != -1) {
 			diselectShapeList();
 			getShapeArrayList().get(max_index).setSelected(true);
-			this.setGroupSelect(this.getShapeArrayList().get(max_index));
 		}
+	}
+	public int countSelect() {
+		int count = 0;
+		for(Shape item:this.getShapeArrayList()) {
+			if(item.isSelected()) count++;
+		}
+		return count;
 	}
 	public void diselectShapeList() {
 		System.out.println("diselect");
@@ -91,6 +108,10 @@ public class Canvas extends JPanel{
 
 	}
 	public void groupItem() {
+		System.out.println(this.countSelect());
+		if(this.countSelect()<2) { // check must two obj be selected
+			return;
+		}
 		GroupObject newGroup = new GroupObject(this.getShapeArrayList().size()+1);
 		for(Shape item:this.getShapeArrayList()) {
 			if(item.getObjectid()!=1 && item.isSelected()) {
@@ -98,11 +119,9 @@ public class Canvas extends JPanel{
 			}
 		}
 		for(Shape item:newGroup.getGroupArrayList()) {
-			System.out.println(item);
 			this.getShapeArrayList().remove(item);
 		}
 		this.getShapeArrayList().add(newGroup);
-		System.out.println(newGroup.getGroupArrayList());
 		System.out.println(this.getShapeArrayList());
 	}
 	public void deGroupItem() {
@@ -129,18 +148,6 @@ public class Canvas extends JPanel{
         	element.draw(g);
         }
     }
-	public void setGroupSelect(Shape select_item){
-		ArrayList<Shape> groupItem = new ArrayList<Shape>();
-		for(int i=this.getGroupShapeList().size()-1;i>=0;i--) {
-			if(this.getGroupShapeList().get(i).contains(select_item)) {
-				groupItem = this.getGroupShapeList().get(i);
-				break;
-			}
-		}
-		for(Shape element : groupItem) {
-			element.setSelected(true);
-		}
-	}
 	public boolean isInGroup(Shape select_item) {
 		boolean result = false;
 		for(int i=this.getGroupShapeList().size()-1;i>=0;i--) {
