@@ -2,8 +2,8 @@ import java.awt.event.MouseEvent;
 
 public class Usecasobjmode extends Mode{
 
-	public Usecasobjmode(int mode, Canvas canvas) {
-		super(mode, canvas);
+	public Usecasobjmode(int mode) {
+		super(mode);
 		// TODO Auto-generated constructor stub
 	}
 

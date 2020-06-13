@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 public abstract class Shape {
 	private int depth; //objectID
@@ -27,5 +28,20 @@ public abstract class Shape {
 	}
 	public void setSelected(boolean isSelected) {
 		this.isSelected = isSelected;
+	}
+	public boolean contain(int x,int y) {
+		return false;
+	};
+	public void pointMoved(int moved_X,int moved_Y) {};
+	public Boolean isin(int x,int y,int x2,int y2) {
+		return false;
+	};
+	public checkPoint getNearestCheckPoint(int x,int y) {
+		return new checkPoint();
+	}
+	public ArrayList<Shape> deGroup() {
+		return new ArrayList<Shape>();
+	}
+	public void setName(String name) {
 	}
 }

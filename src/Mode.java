@@ -1,9 +1,7 @@
 import java.awt.event.MouseEvent;
 public abstract class Mode {
 	private int mode;
-	private Canvas canvas;
-	public Mode(int mode,Canvas canvas) {
-		this.setCanvas(canvas);
+	public Mode(int mode) {
 		this.setMode(mode);
 	}
 	public int getMode() {
@@ -16,9 +14,7 @@ public abstract class Mode {
 	public abstract void mouseReleased(MouseEvent e);
 	public abstract void mousePressed(MouseEvent e);
 	public Canvas getCanvas() {
-		return canvas;
+		return GUI.getInstance().getCanvas();
 	}
-	public void setCanvas(Canvas canvas) {
-		this.canvas = canvas;
-	}
+
 }

@@ -41,25 +41,42 @@ public class GroupObject extends Shape{
 			object.setSelected(isSelected);
 		}
 	}
-	public boolean contain(MouseEvent e) {
-		System.out.println("Check group contain");
+	public boolean contain(int x,int y) {
 		boolean isContain=false;
 		for(Shape item:this.getGroupArrayList()) {
-			System.out.println("Check item "+item.getObjectid());
-			if(item.getObjectid()==0) {
-				if(((BasicObject)item).contain(e.getX(), e.getY())) {
-					isContain = true;
-					break;
-				}
-			}
-			else if(item.getObjectid()==2) {
-				if(this.contain(e)) {
-					isContain = true;
-					break;
-				}
+			if(item.contain(x, y)) {
+				isContain = true;
+				break;
 			}
 		}
-		System.out.println("return group contain : "+isContain);
 		return isContain;
+	}
+	public void pointMoved(int moved_X,int moved_Y) {
+		for(Shape item:this.getGroupArrayList()) {
+			item.pointMoved(moved_X, moved_Y);
+		}
+	}
+	public Boolean isin(int x,int y,int x2,int y2) {
+		boolean isIn = false;
+		for(Shape item:this.getGroupArrayList()) {
+			if(item.isin(x,y,x2,y2)) {
+				isIn = true;
+				break;
+			}
+		}
+		return isIn;
+	}
+	public checkPoint getNearestCheckPoint(int x,int y) {
+		checkPoint nearestPort= new checkPoint();
+		for(Shape item:this.getGroupArrayList()) {
+			if(item.contain(x, y)) {
+				nearestPort = item.getNearestCheckPoint(x, y);
+				break;
+			}
+		}
+		return nearestPort;
+	}
+	public ArrayList<Shape> deGroup() {
+		return this.getGroupArrayList();
 	}
 }

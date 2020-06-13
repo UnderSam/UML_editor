@@ -73,7 +73,7 @@ public class BasicObject extends Shape{
 			this.getCheckPoint()[i].setLocation(this.getCheckPoint()[i].getX()+moved_X, this.getCheckPoint()[i].getY()+moved_Y);
 		}
 	}
-	public Boolean contain(int x,int y) {
+	public boolean contain(int x,int y) {
 		Boolean isSelect = false;
 		if(x > this.getX() && x < this.getX()+this.getCheck_width() && y > this.getY() && y < this.getY()+this.getCheck_height()) {
 			isSelect = true;

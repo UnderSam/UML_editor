@@ -1,9 +1,9 @@
 import java.awt.event.MouseEvent;
 public class Selectmode extends Mode{
 
-	public Selectmode(int mode,Canvas canvas) 
+	public Selectmode(int mode) 
 	{
-		super(mode, canvas);
+		super(mode);
 	}
 
 	@Override
@@ -13,23 +13,15 @@ public class Selectmode extends Mode{
     	if(this.getCanvas().getIsSelectItem()) 
     	{
     		//System.out.println("DraggedItem");
-    		for(int i=0;i<this.getCanvas().getShapeArrayList().size();i++) 
-    		{
-    			if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==1) 
-    			{
-					continue;
-				}
-				if((this.getCanvas().getShapeArrayList().get(i)).isSelected()) 
-				{
-
-					int click_x = this.getCanvas().getClick_x();
+    		for(Shape item:this.getCanvas().getShapeArrayList()) {
+    			if(item.isSelected()) {
+    				int click_x = this.getCanvas().getClick_x();
 					int click_y = this.getCanvas().getClick_y();
 					int moved_x = e.getX();
 					int moved_y = e.getY();
-
-					((BasicObject) this.getCanvas().getShapeArrayList().get(i)).pointMoved(moved_x-click_x,moved_y-click_y);
-				}
-			}
+					item.pointMoved(moved_x-click_x,moved_y-click_y);
+    			}
+    		}
     		this.getCanvas().setClick_x(e.getX());
     		this.getCanvas().setClick_y(e.getY());
     	}
@@ -37,49 +29,23 @@ public class Selectmode extends Mode{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		for(int i=0;i<this.getCanvas().getShapeArrayList().size();i++) {
-			if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==1) {
-				continue;
-			}
-			if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==0) {
-				if(((BasicObject) this.getCanvas().getShapeArrayList().get(i)).contain(this.getCanvas().getClick_x(),this.getCanvas().getClick_y())) {
-					((BasicObject) this.getCanvas().getShapeArrayList().get(i)).getNearestCheckPoint(this.getCanvas().getClick_x(),this.getCanvas().getClick_y());
-				}
-			}
-		}
-		for(int i=0;i<this.getCanvas().getShapeArrayList().size();i++) {
-			if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==1) {
-				continue;
-			}
-			if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==0) {
-				if(((BasicObject) this.getCanvas().getShapeArrayList().get(i)).contain(e.getX(),e.getY())) {
-					((BasicObject) this.getCanvas().getShapeArrayList().get(i)).getNearestCheckPoint(e.getX(),e.getY());
-				}
-			}
-		}
-		////mode///
-		if(!this.getCanvas().getIsSelectItem()) {
-			
+		
+		if(!this.getCanvas().getIsSelectItem()) {	
 			int leftX = e.getX() > this.getCanvas().getClick_x() ? this.getCanvas().getClick_x():e.getX();
 			int rightX = e.getX() > this.getCanvas().getClick_x() ? e.getX() : this.getCanvas().getClick_x();
 			int upY = e.getY() > this.getCanvas().getClick_y() ? this.getCanvas().getClick_y() : e.getY();
 			int downY = e.getY() > this.getCanvas().getClick_y() ? e.getY() : this.getCanvas().getClick_y();
-
-			for(int i=0;i<this.getCanvas().getShapeArrayList().size();i++) {
-				if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==1) {
-					continue;
+			
+			for(Shape item:this.getCanvas().getShapeArrayList()) {
+				if(item.isin(leftX,upY,rightX,downY)) {
+					item.setSelected(true);
+					this.getCanvas().setIsSelectItem(true);
 				}
-				if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==0) {
-					if(((BasicObject) this.getCanvas().getShapeArrayList().get(i)).isin(leftX,upY,rightX,downY)) {
-						( this.getCanvas().getShapeArrayList().get(i)).setSelected(true);
-						this.getCanvas().setIsSelectItem(true);
-					}else {
-						( this.getCanvas().getShapeArrayList().get(i)).setSelected(false);
-					}
+				else {
+					item.setSelected(false);
 				}
 			}
 		}
-		this.getCanvas().repaint();
 	}
 
 	@Override

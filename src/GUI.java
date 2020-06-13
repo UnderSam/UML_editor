@@ -5,40 +5,44 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class GUI {
-	private JFrame frame;
-	private editor myeditor;
-	private int objectCount;
+	private int mode;
 	private ArrayList<MyButtons> buttonList;
-	public GUI(editor myeditor) {
-		this.setMyeditor(myeditor);
-		this.frame = myeditor.getFrame();
-		this.setObjectCount(0);
-		// TODO Auto-generated constructor stub
+	private static GUI instance = new GUI();
+	private Canvas canvas;
+	private GUI() {}
+	public static GUI getInstance() {
+		return instance;
 	}
 	public void initialize() {
 		
 		int buttonStartX = 26; 
-		int buttonStartY = 50;
+		int buttonStartY = 50; 
 		int buttonStartWidth = 124; 
 		int buttonStartHeight = 59;
 		int buttonStep = 80;
-		Canvas canvas = new Canvas(this);
+		
+		JFrame frame = new JFrame();
+		frame.setVisible(true);
+		frame.setBounds(100, 100, 984, 621);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Canvas canvas = new Canvas();
+		this.setCanvas(canvas);
 		frame.getContentPane().add(canvas);
 		Menubar menubar = new Menubar(canvas);
 		frame.setJMenuBar(menubar);
 		
 		String[] buttonNameList = {"Select","Association","General","Composition","Class","UseCase"};
 		Mode[] modelist = {
-				new Selectmode(0, canvas),
-				new Assoclinemode(1, canvas),
-				new Composlinemode(2, canvas),
-				new Generalinemode(3, canvas),
-				new Classobjmode(4, canvas),
-				new Usecasobjmode(5, canvas)
+				new Selectmode(0),
+				new Assoclinemode(1),
+				new Generalinemode(2),
+				new Composlinemode(3),
+				new Classobjmode(4),
+				new Usecasobjmode(5)
 		};
 		buttonList = new ArrayList<MyButtons>(); 
 		for(int i=0;i<buttonNameList.length;i++) {
-			 buttonList.add(new MyButtons(this, modelist[i], buttonNameList[i], buttonStartX, buttonStartY+i*buttonStep, buttonStartWidth, buttonStartHeight));
+			 buttonList.add(new MyButtons(modelist[i], buttonNameList[i], buttonStartX, buttonStartY+i*buttonStep, buttonStartWidth, buttonStartHeight));
 		}
 		for(int i=0;i<buttonList.size();i++) {
 			frame.getContentPane().add(buttonList.get(i));
@@ -53,20 +57,8 @@ public class GUI {
 			e.printStackTrace();
 		}
 	}
-	public editor getMyeditor() {
-		return myeditor;
-	}
-	public void setMyeditor(editor myeditor) {
-		this.myeditor = myeditor;
-	}
 	public int getMode() {
-		return this.getMyeditor().getMode();
-	}
-	public int getObjectCount() {
-		return objectCount;
-	}
-	public void setObjectCount(int objectCount) {
-		this.objectCount = objectCount;
+		return this.mode;
 	}
 	public void setSelectButtons() {
 		for(MyButtons element : this.getButtonList()) {
@@ -87,7 +79,13 @@ public class GUI {
 	}
 	public void setMode(int mode) {
 		// TODO Auto-generated method stub
-		this.getMyeditor().setMode(mode);
+		this.mode = mode;
+	}
+	public Canvas getCanvas() {
+		return canvas;
+	}
+	public void setCanvas(Canvas canvas) {
+		this.canvas = canvas;
 	}
 	
 }

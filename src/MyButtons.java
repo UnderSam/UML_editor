@@ -7,15 +7,15 @@ import javax.swing.JButton;
 public class MyButtons extends JButton{
 	private boolean isSelected;
 	private Mode moder;
-	public MyButtons(GUI myGUI,Mode mode,String text,int x,int y,int width,int height) {
+	public MyButtons(Mode mode,String text,int x,int y,int width,int height) {
 		// TODO Auto-generated constructor stub
 		this.setSelected(false);
 		this.setModer(mode);
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				myGUI.setMode(mode.getMode());
-				myGUI.setSelectButtons();
+				GUI.getInstance().setMode(mode.getMode());
+				GUI.getInstance().setSelectButtons();
 			}
 		});
 		this.setText(text);

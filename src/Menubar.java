@@ -1,10 +1,6 @@
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
 public class Menubar extends JMenuBar{
 
@@ -21,58 +17,15 @@ public class Menubar extends JMenuBar{
 		JMenu mnEdit = new JMenu("Edit");
 		this.add(mnEdit);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Change Object name");
-		mnEdit.add(mntmNewMenuItem);
-		mntmNewMenuItem.addActionListener(
-				new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						// TODO Auto-generated method stub
-						String name=JOptionPane.showInputDialog(new Frame(),"Enter Name");
-						if(name == null || (name != null && ("".equals(name))))
-						{
-						    return;
-						}
-						panel.changeNameDialog(name);
-					}
-				}
-		);
-		JMenuItem mntmGroupMenuItem = new JMenuItem("Group");
-		mntmGroupMenuItem.addActionListener(
-				new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						// TODO Auto-generated method stub
-						System.out.println(arg0.getActionCommand());
-						panel.groupItem();
-					}
-				}
-		);
-		mnEdit.add(mntmGroupMenuItem );
-		JMenuItem mntmDegroupMenuItem = new JMenuItem("deGroup");
-		mntmDegroupMenuItem.addActionListener(
-				new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						// TODO Auto-generated method stub
-						System.out.println(arg0.getActionCommand());
-						panel.deGroupItem();
-					}
-				}
-		);
-		mnEdit.add(mntmDegroupMenuItem);
-		JMenuItem mntmClearMenuItem = new JMenuItem("ClearObjects");
-		mntmClearMenuItem.addActionListener(
-				new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						// TODO Auto-generated method stub
-						System.out.println(arg0.getActionCommand());
-						panel.clearContents();
-					}
-				}
-		);
-		mnEdit.add(mntmClearMenuItem);
+		JMenuItem[] ItemList = {
+			new ChangeNameMenuItem("Change Object Name"),
+			new GroupMenuItem("Group Item"),
+			new DegroupMenuItem("Degroup Item"),
+			new ClearcontentsMenuItem("ClearAll"),
+		};
+		for(JMenuItem item:ItemList) {
+			mnEdit.add(item);
+		}
 	}
 
 }

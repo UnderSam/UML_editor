@@ -2,8 +2,8 @@ import java.awt.event.MouseEvent;
 
 public class Generalinemode extends Mode{
 
-	public Generalinemode(int mode, Canvas canvas) {
-		super(mode, canvas);
+	public Generalinemode(int mode) {
+		super(mode);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -18,25 +18,17 @@ public class Generalinemode extends Mode{
 		// TODO Auto-generated method stub
 		checkPoint startPoint = new checkPoint();
 		checkPoint endPoint = new checkPoint();
-		for(int i=0;i<this.getCanvas().getShapeArrayList().size();i++) {
-			if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==1) {
-				continue;
+		for(Shape item:this.getCanvas().getShapeArrayList()) {
+			if(item.contain(this.getCanvas().getClick_x(),this.getCanvas().getClick_y())) {
+				startPoint = item.getNearestCheckPoint(this.getCanvas().getClick_x(),this.getCanvas().getClick_y());
 			}
-			if(((BasicObject) this.getCanvas().getShapeArrayList().get(i)).contain(this.getCanvas().getClick_x(),this.getCanvas().getClick_y())) {
-				startPoint = ((BasicObject) this.getCanvas().getShapeArrayList().get(i)).getNearestCheckPoint(this.getCanvas().getClick_x(),this.getCanvas().getClick_y());
-			}
-		}
-		for(int i=0;i<this.getCanvas().getShapeArrayList().size();i++) {
-			if(this.getCanvas().getShapeArrayList().get(i).getObjectid()==1) {
-				continue;
-			}
-			if(((BasicObject) this.getCanvas().getShapeArrayList().get(i)).contain(e.getX(),e.getY())) {
-				endPoint = ((BasicObject) this.getCanvas().getShapeArrayList().get(i)).getNearestCheckPoint(e.getX(),e.getY());
+			if(item.contain(e.getX(),e.getY())) {
+				endPoint = item.getNearestCheckPoint(e.getX(),e.getY());
 			}
 		}
 		///mode///
 		if(startPoint.getBelongTo() != endPoint.getBelongTo() && startPoint.getBelongTo()!= -1 && endPoint.getBelongTo()!= -1) {
-			this.getCanvas().getShapeArrayList().add(new Composition_Line(startPoint, endPoint, this.getCanvas().getDotSize(),this.getCanvas().getShapeArrayList().size()+1));
+			this.getCanvas().getShapeArrayList().add(new Generalization_Line(startPoint, endPoint, this.getCanvas().getDotSize(),this.getCanvas().getShapeArrayList().size()+1));
 		}
 		this.getCanvas().diselectShapeList();
 	}
