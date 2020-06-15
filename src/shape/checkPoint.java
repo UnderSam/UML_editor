@@ -1,9 +1,7 @@
-package gui;
+package shape;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
-
-import shape.Line;
 
 @SuppressWarnings("serial")
 public class checkPoint extends Point{

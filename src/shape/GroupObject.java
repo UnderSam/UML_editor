@@ -2,8 +2,6 @@ package shape;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import gui.checkPoint;
-
 public class GroupObject extends Shape{
 	private int depth;
 	private static int objectid = 2;

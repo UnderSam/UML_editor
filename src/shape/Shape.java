@@ -3,8 +3,6 @@ package shape;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import gui.checkPoint;
-
 public abstract class Shape {
 	private int depth; //objectID
 	private int objectid;

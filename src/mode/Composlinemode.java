@@ -1,9 +1,9 @@
 package mode;
 import java.awt.event.MouseEvent;
 
-import gui.checkPoint;
 import shape.Composition_Line;
 import shape.Shape;
+import shape.checkPoint;
 
 public class Composlinemode extends Mode{
 

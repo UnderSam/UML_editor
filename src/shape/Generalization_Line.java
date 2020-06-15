@@ -2,8 +2,6 @@ package shape;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import gui.checkPoint;
-
 public class Generalization_Line extends Line{
 
 	private double theta; 

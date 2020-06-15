@@ -1,8 +1,6 @@
 package shape;
 import java.awt.Graphics;
 
-import gui.checkPoint;
-
 public class Association_Line extends Line{
 
 	private double theta; 

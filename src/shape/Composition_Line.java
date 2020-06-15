@@ -2,8 +2,6 @@ package shape;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import gui.checkPoint;
-
 public class Composition_Line extends Line{
 	private double theta; 
 	public Composition_Line(checkPoint start,checkPoint end,int dotSize,int depth) {
