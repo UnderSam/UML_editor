@@ -1,6 +1,8 @@
+package shape;
 import java.awt.Graphics;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+
+import gui.checkPoint;
 
 public class GroupObject extends Shape{
 	private int depth;

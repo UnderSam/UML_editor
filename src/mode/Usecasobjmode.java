@@ -1,8 +1,11 @@
+package mode;
 import java.awt.event.MouseEvent;
 
-public class Classobjmode extends Mode{
+import shape.UseCaseObject;
 
-	public Classobjmode(int mode) {
+public class Usecasobjmode extends Mode{
+
+	public Usecasobjmode(int mode) {
 		super(mode);
 		// TODO Auto-generated constructor stub
 	}
@@ -26,7 +29,7 @@ public class Classobjmode extends Mode{
 		this.getCanvas().repaint();
 		this.getCanvas().setClick_x(e.getX());
 		this.getCanvas().setClick_y(e.getY());
-		this.getCanvas().getShapeArrayList().add(new ClassObject("", e.getX(), e.getY(), this.getCanvas().getShapeArrayList().size()+1, this.getCanvas().RectWidth, this.getCanvas().RectHeight, this.getCanvas().getDotSize()));
+		this.getCanvas().getShapeArrayList().add(new UseCaseObject("", e.getX(), e.getY(), this.getCanvas().getShapeArrayList().size()+1, this.getCanvas().getCircleRadius(), this.getCanvas().getDotSize()));
 	}
 
 }

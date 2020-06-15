@@ -1,6 +1,9 @@
+package shape;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+
+import gui.checkPoint;
 
 public class BasicObject extends Shape{
 

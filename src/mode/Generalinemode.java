@@ -1,8 +1,13 @@
+package mode;
 import java.awt.event.MouseEvent;
 
-public class Composlinemode extends Mode{
+import gui.checkPoint;
+import shape.Generalization_Line;
+import shape.Shape;
 
-	public Composlinemode(int mode) {
+public class Generalinemode extends Mode{
+
+	public Generalinemode(int mode) {
 		super(mode);
 		// TODO Auto-generated constructor stub
 	}
@@ -28,7 +33,7 @@ public class Composlinemode extends Mode{
 		}
 		///mode///
 		if(startPoint.getBelongTo() != endPoint.getBelongTo() && startPoint.getBelongTo()!= -1 && endPoint.getBelongTo()!= -1) {
-			this.getCanvas().getShapeArrayList().add(new Composition_Line(startPoint, endPoint, this.getCanvas().getDotSize(),this.getCanvas().getShapeArrayList().size()+1));
+			this.getCanvas().getShapeArrayList().add(new Generalization_Line(startPoint, endPoint, this.getCanvas().getDotSize(),this.getCanvas().getShapeArrayList().size()+1));
 		}
 		this.getCanvas().diselectShapeList();
 	}

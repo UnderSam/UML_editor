@@ -1,4 +1,7 @@
+package mode;
 import java.awt.event.MouseEvent;
+
+import shape.Shape;
 public class Selectmode extends Mode{
 
 	public Selectmode(int mode) 

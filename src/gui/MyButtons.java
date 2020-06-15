@@ -1,7 +1,10 @@
+package gui;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+
+import mode.Mode;
 
 @SuppressWarnings("serial")
 public class MyButtons extends JButton{

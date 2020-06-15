@@ -1,5 +1,7 @@
 import java.awt.EventQueue;
 
+import gui.GUI;
+
 public class editor {
 	/**
 	 * Launch the application.

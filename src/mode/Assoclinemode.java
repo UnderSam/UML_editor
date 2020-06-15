@@ -1,4 +1,9 @@
+package mode;
 import java.awt.event.MouseEvent;
+
+import gui.checkPoint;
+import shape.Association_Line;
+import shape.Shape;
 
 public class Assoclinemode extends Mode{
 

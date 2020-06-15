@@ -1,7 +1,10 @@
+package menu_item;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
+
+import gui.GUI;
 
 public class ClearcontentsMenuItem extends JMenuItem{
 

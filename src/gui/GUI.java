@@ -1,8 +1,18 @@
+package gui;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import menu_item.Menubar;
+import mode.Assoclinemode;
+import mode.Classobjmode;
+import mode.Composlinemode;
+import mode.Generalinemode;
+import mode.Mode;
+import mode.Selectmode;
+import mode.Usecasobjmode;
 
 public class GUI {
 	private int mode;

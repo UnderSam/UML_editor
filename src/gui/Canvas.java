@@ -1,3 +1,4 @@
+package gui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
@@ -8,6 +9,8 @@ import java.util.Comparator;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import shape.Shape;
+
 @SuppressWarnings("serial")
 public class Canvas extends JPanel{
 	private ArrayList<Shape> shapeArrayList;
@@ -15,18 +18,18 @@ public class Canvas extends JPanel{
 	private int click_x;
 	private int click_y;
 	private Boolean isSelectItem;
-	int CircleRadius;
-	int RectWidth;
-	int RectHeight;
+	private int CircleRadius;
+	private int RectWidth;
+	private int RectHeight;
 	int dotSize;
-	Comparator<Shape> c;
+	private Comparator<Shape> c;
 	public Canvas() {
-		CircleRadius = 40;
-		RectWidth = 90;
-		RectHeight = 30;
+		setCircleRadius(40);
+		setRectWidth(90);
+		setRectHeight(30);
 		dotSize = 10;
 		// TODO Auto-generated constructor stub
-		this.c = new Comparator<Shape>() {
+		this.setC(new Comparator<Shape>() {
 			@Override
 			public int compare(Shape s1,Shape s2) {
 				if(s1.getDepth()>s2.getDepth()) {
@@ -34,7 +37,7 @@ public class Canvas extends JPanel{
 				}
 				else return -1; 
 			} 
-		};
+		});
 		this.setShapeArrayList(new ArrayList<Shape>());
 		this.setGroupShapeList(new ArrayList<ArrayList<Shape>>());
 		this.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -143,5 +146,29 @@ public class Canvas extends JPanel{
 	}
 	public void setGroupShapeList(ArrayList<ArrayList<Shape>> groupShapeList) {
 		this.groupShapeList = groupShapeList;
+	}
+	public Comparator<Shape> getC() {
+		return c;
+	}
+	public void setC(Comparator<Shape> c) {
+		this.c = c;
+	}
+	public int getRectWidth() {
+		return RectWidth;
+	}
+	public void setRectWidth(int rectWidth) {
+		RectWidth = rectWidth;
+	}
+	public int getRectHeight() {
+		return RectHeight;
+	}
+	public void setRectHeight(int rectHeight) {
+		RectHeight = rectHeight;
+	}
+	public int getCircleRadius() {
+		return CircleRadius;
+	}
+	public void setCircleRadius(int circleRadius) {
+		CircleRadius = circleRadius;
 	}
 }

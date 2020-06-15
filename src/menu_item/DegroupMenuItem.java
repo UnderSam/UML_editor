@@ -1,7 +1,11 @@
+package menu_item;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
+
+import gui.GUI;
+import shape.Shape;
 
 public class DegroupMenuItem extends JMenuItem{
 
@@ -24,11 +28,13 @@ public class DegroupMenuItem extends JMenuItem{
 						for(Shape newItem:item.deGroup()) {
 							GUI.getInstance().getCanvas().getShapeArrayList().add(newItem);
 						}
-						GUI.getInstance().getCanvas().getShapeArrayList().remove(item);
+						if(item.deGroup().size()>0) {
+							GUI.getInstance().getCanvas().getShapeArrayList().remove(item);
+						}					
 						break;
 					}
 				}
-				GUI.getInstance().getCanvas().getShapeArrayList().sort(GUI.getInstance().getCanvas().c);
+				GUI.getInstance().getCanvas().getShapeArrayList().sort(GUI.getInstance().getCanvas().getC());
 			}
 		});
 	}

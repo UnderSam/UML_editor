@@ -1,7 +1,12 @@
+package menu_item;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
+
+import gui.GUI;
+import shape.GroupObject;
+import shape.Shape;
 
 public class GroupMenuItem extends JMenuItem{
 
@@ -35,7 +40,7 @@ public class GroupMenuItem extends JMenuItem{
 					GUI.getInstance().getCanvas().getShapeArrayList().remove(item);
 				}
 				GUI.getInstance().getCanvas().getShapeArrayList().add(newGroup);
-				GUI.getInstance().getCanvas().getShapeArrayList().sort(GUI.getInstance().getCanvas().c);
+				GUI.getInstance().getCanvas().getShapeArrayList().sort(GUI.getInstance().getCanvas().getC());
 			}
 		});
 	}

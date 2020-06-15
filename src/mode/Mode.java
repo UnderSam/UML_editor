@@ -1,4 +1,8 @@
+package mode;
 import java.awt.event.MouseEvent;
+
+import gui.Canvas;
+import gui.GUI;
 public abstract class Mode {
 	private int mode;
 	public Mode(int mode) {

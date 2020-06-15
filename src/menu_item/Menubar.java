@@ -1,6 +1,9 @@
+package menu_item;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import gui.Canvas;
 
 public class Menubar extends JMenuBar{
 

@@ -1,9 +1,14 @@
-import java.awt.Color;
+package shape;
 import java.awt.Graphics;
 
-public class Composition_Line extends Line{
+import gui.checkPoint;
+
+public class Association_Line extends Line{
+
 	private double theta; 
-	public Composition_Line(checkPoint start,checkPoint end,int dotSize,int depth) {
+    
+    // converting values to radiant 
+	public Association_Line(checkPoint start,checkPoint end,int dotSize,int depth) {
 		// TODO Auto-generated constructor stub
 		super(start,end,dotSize,depth);
 		this.setTheta(270);
@@ -15,8 +20,9 @@ public class Composition_Line extends Line{
 		this.drawLine(g);
 		this.drawHead(g);
 	}
+
 	private void drawHead(Graphics g) {
-		int polyCount = 4;
+		
 		double distance = this.getDistance();
 		double rad = Math.toRadians(this.getTheta());
 		double arrow_one_x = ((this.getEndPoint().getX() - this.getStartPoint().getX())*Math.cos(rad) + (this.getEndPoint().getY() - this.getStartPoint().getY())*(-1)*Math.sin(rad) + this.getStartPoint().getX());
@@ -30,21 +36,11 @@ public class Composition_Line extends Line{
 		arrow_two_x = this.getEndPoint().getX() - 10*(this.getEndPoint().getX()-arrow_two_x)/distance;
 		arrow_two_y = this.getEndPoint().getY() - 10*(this.getEndPoint().getY()-arrow_two_y)/distance;
 		
-		double point_four_x = this.getEndPoint().getX() - 15*(this.getEndPoint().getX()-this.getStartPoint().getX())/distance;
-		double point_four_y = this.getEndPoint().getY() - 15*(this.getEndPoint().getY()-this.getStartPoint().getY())/distance;
 		
-		int[] Polygen_X = new int[] {(int)arrow_one_x,(int)point_four_x,(int)arrow_two_x,(int)this.getEndPoint().getX()}; 
-		int[] Polygen_Y = new int[] {(int)arrow_one_y,(int)point_four_y,(int)arrow_two_y,(int)this.getEndPoint().getY()};
-		for(int i=0;i<polyCount;i++) {
-			Polygen_X[i]+=this.getDotSize()/2;
-			Polygen_Y[i]+=this.getDotSize()/2;
-		}
-		
-		g.setColor(Color.white);
-		g.fillPolygon(Polygen_X, Polygen_Y, polyCount);
-		g.setColor(Color.black);
-		g.drawPolygon(Polygen_X, Polygen_Y, polyCount);
+		g.drawLine((int)this.getEndPoint().getX()+this.getDotSize()/2, (int)this.getEndPoint().getY()+this.getDotSize()/2, (int)arrow_one_x+this.getDotSize()/2, (int)arrow_one_y+this.getDotSize()/2);
+		g.drawLine((int)this.getEndPoint().getX()+this.getDotSize()/2, (int)this.getEndPoint().getY()+this.getDotSize()/2, (int)arrow_two_x+this.getDotSize()/2, (int)arrow_two_y+this.getDotSize()/2);
 	}
+	
 	public double getTheta() {
 		return theta;
 	}
@@ -52,5 +48,6 @@ public class Composition_Line extends Line{
 	public void setTheta(double theta) {
 		this.theta = theta;
 	}
+
 
 }
